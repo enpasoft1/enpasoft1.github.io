@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EpiTechGh Video Gallery</title>
-  <style>
+  <title>Video Gallery - YouTube/TikTok Replica</title>
+   <style>
     /* General Styling */
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -162,57 +163,70 @@
 
   <!-- Header Section -->
   <header>
-    <div class="logo">EpiTech Video Gallery</div>
+    <div class="logo">VideoGallery</div>
     <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search videos...">
+      <input type="text" placeholder="Search videos...">
     </div>
   </header>
 
   <!-- Main Content Section -->
-  <div class="main-content" id="videoContainer">
-    <!-- Video 1 (Iframe) -->
-    <div class="video-item" id="video1" onclick="toggleFullScreen('video1')">
-      <iframe src="https://drive.google.com/file/d/17D5Bjvapu74UE0TsCV-a1DqeI3qDBaGg/preview" 
-              frameborder="0" allowfullscreen="true"></iframe>
-      <h3 class="video-title">Video Title 1</h3>
-    </div>
-    <!-- Video 2 (Iframe) -->
-    <div class="video-item" id="video2" onclick="toggleFullScreen('video2')">
-      <iframe src="https://drive.google.com/file/d/10tguhOzvRD36gfVVlyJ5gnfBpp1Dkbof/preview" 
-              frameborder="0" allowfullscreen="true"></iframe>
-      <h3 class="video-title">Video Title 2</h3>
-    </div>
-    <!-- Video 3 (Iframe) -->
-    <div class="video-item" id="video3" onclick="toggleFullScreen('video3')">
-      <iframe src="https://drive.google.com/file/d/1QW0yIWeTLy6UFXjwWRSAy6bbytEiJZKf/preview" 
-              frameborder="0" allowfullscreen="true"></iframe>
-      <h3 class="video-title">Video Title 3</h3>
-    </div>
-    <!-- Video 4 (Iframe) -->
-    <div class="video-item" id="video4" onclick="toggleFullScreen('video4')">
-      <iframe src="https://drive.google.com/file/d/1J9dMeti-_eU_bO9HFqpSIkTQLKnIPHm5/preview" 
-              frameborder="0" allowfullscreen="true"></iframe>
-      <h3 class="video-title">Video Title 4</h3>
-    </div>
-    <!-- Video 5 (Iframe) -->
-    <div class="video-item" id="video5" onclick="toggleFullScreen('video5')">
-      <iframe src="https://drive.google.com/file/d/1Qs0shw7b4_8KB-wfYTfa_omUoLNB0Guy/preview" 
-              frameborder="0" allowfullscreen="true"></iframe>
-      <h3 class="video-title">Video Title 5</h3>
-    </div>
-    <div class="video-item">
+  <div class="main-content">
+    <div class="video-feed">
+      <!-- Video 1 (Iframe) -->
+      <div class="video-item">
+        <iframe src="https://drive.google.com/file/d/17D5Bjvapu74UE0TsCV-a1DqeI3qDBaGg/preview" 
+                width="267" height="476" frameborder="0" allowfullscreen="true"></iframe>
+        <h3>Video Title 1</h3>
+      </div>
+      <!-- Video 2 (Iframe) -->
+      <div class="video-item">
+        <iframe src="https://drive.google.com/file/d/10tguhOzvRD36gfVVlyJ5gnfBpp1Dkbof/preview" 
+                width="267" height="476" frameborder="0" allowfullscreen="true"></iframe>
+        <h3>Video Title 2</h3>
+      </div>
+      <!-- Video 3 (Iframe) -->
+      <div class="video-item">
+        <iframe src="https://drive.google.com/file/d/1QW0yIWeTLy6UFXjwWRSAy6bbytEiJZKf/preview" 
+                width="267" height="476" frameborder="0" allowfullscreen="true"></iframe>
+        <h3>Video Title 3</h3>
+      </div>
+
+         <div class="video-item">
+        <iframe src="https://drive.google.com/file/d/1J9dMeti-_eU_bO9HFqpSIkTQLKnIPHm5/preview" 
+                width="267" height="476" frameborder="0" allowfullscreen="true"></iframe>
+        <h3>Video Title 4</h3>
+      </div>
+
+       <div class="video-item">
         <iframe src="https://drive.google.com/file/d/1Qs0shw7b4_8KB-wfYTfa_omUoLNB0Guy/preview" 
                 width="267" height="476" frameborder="0" allowfullscreen="true"></iframe>
         <h3>Video Title 5</h3>
       </div>
+    </div>
   </div>
 
   <!-- Footer Section -->
   <footer>
-    <p>&copy; 2025 EpiTechGh. All rights reserved. <a href="#">Privacy Policy</a></p>
+    <p>&copy; 2025 VideoGallery. All rights reserved.</p>
   </footer>
 
   <script>
+    // Placeholder for any interactivity (e.g., dynamically load videos, video events)
+    document.addEventListener('DOMContentLoaded', function() {
+      const videoItems = document.querySelectorAll('.video-item iframe');
+
+      videoItems.forEach(iframe => {
+        iframe.addEventListener('click', () => {
+          // Example: You could add additional functionality for clicking the iframe
+          // For now, clicking will just load the iframe source.
+          window.open(iframe.src, '_blank');
+        });
+      });
+    });
+
+
+
+<script>
     // Search Functionality
     document.getElementById('searchInput').addEventListener('input', function() {
       const searchQuery = this.value.toLowerCase();
@@ -227,12 +241,6 @@
         }
       });
     });
-
-    // Toggle Fullscreen for Mobile Portrait
-    function toggleFullScreen(videoId) {
-      const videoItem = document.getElementById(videoId);
-      videoItem.classList.toggle('fullscreen');
-    }
   </script>
 
 </body>
