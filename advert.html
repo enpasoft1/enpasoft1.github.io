@@ -223,13 +223,15 @@
     // Fullscreen Toggle Function
     function toggleFullScreen(videoId) {
       const videoItem = document.getElementById(videoId);
-      const iframe = videoItem.querySelector('iframe');
       
       // If the video is already in fullscreen, exit fullscreen mode
       if (document.fullscreenElement) {
         document.exitFullscreen();
       } else {
-        videoItem.requestFullscreen();
+        // Request fullscreen for the video container
+        videoItem.requestFullscreen().catch((err) => {
+          console.error("Fullscreen failed:", err);
+        });
       }
     }
   </script>
