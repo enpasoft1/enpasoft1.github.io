@@ -54,9 +54,9 @@
       overflow: hidden;
     }
 
-    video {
+    iframe {
       width: 100%;
-      height: auto;
+      height: 100%;
       display: block;
     }
 
@@ -92,23 +92,24 @@
   <!-- Main Content Section -->
   <div class="main-content">
     <div class="video-feed">
-      <!-- Video 1 -->
+      <!-- Video 1 (Iframe) -->
       <div class="video-item">
-        <video controls>
-          <source src="video1.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+        <iframe src="https://drive.google.com/file/d/17D5Bjvapu74UE0TsCV-a1DqeI3qDBaGg/preview" 
+                width="267" height="476" frameborder="0" allowfullscreen="true"></iframe>
         <h3>Video Title 1</h3>
       </div>
-      <!-- Video 2 -->
+      <!-- Video 2 (Iframe) -->
       <div class="video-item">
-        <video controls>
-          <source src="video2.mp4" type="video/mp4">
-          Your browser does not support the video tag.
-        </video>
+        <iframe src="https://drive.google.com/file/d/10tguhOzvRD36gfVVlyJ5gnfBpp1Dkbof/preview" 
+                width="267" height="476" frameborder="0" allowfullscreen="true"></iframe>
         <h3>Video Title 2</h3>
       </div>
-      <!-- Add more videos here -->
+      <!-- Video 3 (Iframe) -->
+      <div class="video-item">
+        <iframe src="https://drive.google.com/file/d/1QW0yIWeTLy6UFXjwWRSAy6bbytEiJZKf/preview" 
+                width="267" height="476" frameborder="0" allowfullscreen="true"></iframe>
+        <h3>Video Title 3</h3>
+      </div>
     </div>
   </div>
 
@@ -120,16 +121,13 @@
   <script>
     // Placeholder for any interactivity (e.g., dynamically load videos, video events)
     document.addEventListener('DOMContentLoaded', function() {
-      const videoItems = document.querySelectorAll('.video-item video');
+      const videoItems = document.querySelectorAll('.video-item iframe');
 
-      videoItems.forEach(video => {
-        video.addEventListener('click', () => {
-          // Handle video click - for example, play video in full screen
-          if (video.paused) {
-            video.play();
-          } else {
-            video.pause();
-          }
+      videoItems.forEach(iframe => {
+        iframe.addEventListener('click', () => {
+          // Example: You could add additional functionality for clicking the iframe
+          // For now, clicking will just load the iframe source.
+          window.open(iframe.src, '_blank');
         });
       });
     });
