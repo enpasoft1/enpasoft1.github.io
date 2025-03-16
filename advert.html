@@ -65,6 +65,7 @@
       width: 280px;
       cursor: pointer;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
     }
 
     .video-item:hover {
@@ -93,6 +94,25 @@
     .video-item h3:hover {
       background-color: #4CAF50;
       color: white;
+    }
+
+    /* Fullscreen Button */
+    .fullscreen-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 8px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+      border: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .fullscreen-btn:hover {
+      background-color: #45a049;
     }
 
     /* Footer Styling */
@@ -143,34 +163,39 @@
   <!-- Main Content Section -->
   <div class="main-content" id="videoContainer">
     <!-- Video 1 (Iframe) -->
-    <div class="video-item">
+    <div class="video-item" id="video1">
       <iframe src="https://drive.google.com/file/d/17D5Bjvapu74UE0TsCV-a1DqeI3qDBaGg/preview" 
               frameborder="0" allowfullscreen="true"></iframe>
       <h3 class="video-title">Video Title 1</h3>
+      <button class="fullscreen-btn" onclick="toggleFullScreen('video1')">Fullscreen</button>
     </div>
     <!-- Video 2 (Iframe) -->
-    <div class="video-item">
+    <div class="video-item" id="video2">
       <iframe src="https://drive.google.com/file/d/10tguhOzvRD36gfVVlyJ5gnfBpp1Dkbof/preview" 
               frameborder="0" allowfullscreen="true"></iframe>
       <h3 class="video-title">Video Title 2</h3>
+      <button class="fullscreen-btn" onclick="toggleFullScreen('video2')">Fullscreen</button>
     </div>
     <!-- Video 3 (Iframe) -->
-    <div class="video-item">
+    <div class="video-item" id="video3">
       <iframe src="https://drive.google.com/file/d/1QW0yIWeTLy6UFXjwWRSAy6bbytEiJZKf/preview" 
               frameborder="0" allowfullscreen="true"></iframe>
       <h3 class="video-title">Video Title 3</h3>
+      <button class="fullscreen-btn" onclick="toggleFullScreen('video3')">Fullscreen</button>
     </div>
     <!-- Video 4 (Iframe) -->
-    <div class="video-item">
+    <div class="video-item" id="video4">
       <iframe src="https://drive.google.com/file/d/1J9dMeti-_eU_bO9HFqpSIkTQLKnIPHm5/preview" 
               frameborder="0" allowfullscreen="true"></iframe>
       <h3 class="video-title">Video Title 4</h3>
+      <button class="fullscreen-btn" onclick="toggleFullScreen('video4')">Fullscreen</button>
     </div>
     <!-- Video 5 (Iframe) -->
-    <div class="video-item">
+    <div class="video-item" id="video5">
       <iframe src="https://drive.google.com/file/d/1Qs0shw7b4_8KB-wfYTfa_omUoLNB0Guy/preview" 
               frameborder="0" allowfullscreen="true"></iframe>
       <h3 class="video-title">Video Title 5</h3>
+      <button class="fullscreen-btn" onclick="toggleFullScreen('video5')">Fullscreen</button>
     </div>
   </div>
 
@@ -194,6 +219,19 @@
         }
       });
     });
+
+    // Fullscreen Toggle Function
+    function toggleFullScreen(videoId) {
+      const videoItem = document.getElementById(videoId);
+      const iframe = videoItem.querySelector('iframe');
+      
+      // If the video is already in fullscreen, exit fullscreen mode
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        videoItem.requestFullscreen();
+      }
+    }
   </script>
 
 </body>
