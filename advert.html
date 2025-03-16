@@ -96,23 +96,14 @@
       color: white;
     }
 
-    /* Fullscreen Button */
-    .fullscreen-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: #4CAF50;
-      color: white;
-      padding: 8px 12px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 14px;
-      border: none;
-      transition: background-color 0.3s ease;
+    /* Fullscreen Mode for Mobile Portrait */
+    .video-item.fullscreen iframe {
+      height: 100vh;
+      width: 100vw;
     }
 
-    .fullscreen-btn:hover {
-      background-color: #45a049;
+    .video-item.fullscreen h3 {
+      display: none; /* Hide the title in fullscreen mode */
     }
 
     /* Footer Styling */
@@ -137,15 +128,32 @@
       text-decoration: underline;
     }
 
-    /* Media Queries for Responsiveness */
+    /* Media Queries for Mobile Portrait */
     @media (max-width: 768px) {
       .main-content {
-        padding: 20px;
+        padding: 10px;
       }
 
       .video-item {
         width: 100%;
-        max-width: 400px;
+        max-width: 100%;
+      }
+
+      /* Remove the iframe’s aspect ratio constraints in portrait */
+      .video-item iframe {
+        width: 100%;
+        height: 200px;
+      }
+
+      /* Make the entire video container fullscreen */
+      .video-item.fullscreen iframe {
+        height: 100vh;
+        width: 100vw;
+      }
+
+      /* Make title disappear in fullscreen */
+      .video-item.fullscreen h3 {
+        display: none;
       }
     }
   </style>
@@ -163,40 +171,40 @@
   <!-- Main Content Section -->
   <div class="main-content" id="videoContainer">
     <!-- Video 1 (Iframe) -->
-    <div class="video-item" id="video1">
+    <div class="video-item" id="video1" onclick="toggleFullScreen('video1')">
       <iframe src="https://drive.google.com/file/d/17D5Bjvapu74UE0TsCV-a1DqeI3qDBaGg/preview" 
               frameborder="0" allowfullscreen="true"></iframe>
       <h3 class="video-title">Video Title 1</h3>
-      <button class="fullscreen-btn" onclick="toggleFullScreen('video1')">Fullscreen</button>
     </div>
     <!-- Video 2 (Iframe) -->
-    <div class="video-item" id="video2">
+    <div class="video-item" id="video2" onclick="toggleFullScreen('video2')">
       <iframe src="https://drive.google.com/file/d/10tguhOzvRD36gfVVlyJ5gnfBpp1Dkbof/preview" 
               frameborder="0" allowfullscreen="true"></iframe>
       <h3 class="video-title">Video Title 2</h3>
-      <button class="fullscreen-btn" onclick="toggleFullScreen('video2')">Fullscreen</button>
     </div>
     <!-- Video 3 (Iframe) -->
-    <div class="video-item" id="video3">
+    <div class="video-item" id="video3" onclick="toggleFullScreen('video3')">
       <iframe src="https://drive.google.com/file/d/1QW0yIWeTLy6UFXjwWRSAy6bbytEiJZKf/preview" 
               frameborder="0" allowfullscreen="true"></iframe>
       <h3 class="video-title">Video Title 3</h3>
-      <button class="fullscreen-btn" onclick="toggleFullScreen('video3')">Fullscreen</button>
     </div>
     <!-- Video 4 (Iframe) -->
-    <div class="video-item" id="video4">
+    <div class="video-item" id="video4" onclick="toggleFullScreen('video4')">
       <iframe src="https://drive.google.com/file/d/1J9dMeti-_eU_bO9HFqpSIkTQLKnIPHm5/preview" 
               frameborder="0" allowfullscreen="true"></iframe>
       <h3 class="video-title">Video Title 4</h3>
-      <button class="fullscreen-btn" onclick="toggleFullScreen('video4')">Fullscreen</button>
     </div>
     <!-- Video 5 (Iframe) -->
-    <div class="video-item" id="video5">
+    <div class="video-item" id="video5" onclick="toggleFullScreen('video5')">
       <iframe src="https://drive.google.com/file/d/1Qs0shw7b4_8KB-wfYTfa_omUoLNB0Guy/preview" 
               frameborder="0" allowfullscreen="true"></iframe>
       <h3 class="video-title">Video Title 5</h3>
-      <button class="fullscreen-btn" onclick="toggleFullScreen('video5')">Fullscreen</button>
     </div>
+    <div class="video-item">
+        <iframe src="https://drive.google.com/file/d/1Qs0shw7b4_8KB-wfYTfa_omUoLNB0Guy/preview" 
+                width="267" height="476" frameborder="0" allowfullscreen="true"></iframe>
+        <h3>Video Title 5</h3>
+      </div>
   </div>
 
   <!-- Footer Section -->
@@ -220,19 +228,10 @@
       });
     });
 
-    // Fullscreen Toggle Function
+    // Toggle Fullscreen for Mobile Portrait
     function toggleFullScreen(videoId) {
       const videoItem = document.getElementById(videoId);
-      
-      // If the video is already in fullscreen, exit fullscreen mode
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-      } else {
-        // Request fullscreen for the video container
-        videoItem.requestFullscreen().catch((err) => {
-          console.error("Fullscreen failed:", err);
-        });
-      }
+      videoItem.classList.toggle('fullscreen');
     }
   </script>
 
