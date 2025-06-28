@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Under Maintenance | Server Upgrade</title>
   <style>
-    /* Reset and base styles */
+    /* Reset */
     * {
       margin: 0;
       padding: 0;
@@ -17,34 +17,44 @@
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background: linear-gradient(to right, #2c3e50, #34495e);
-      color: #333;
+      color: #fff;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
       padding: 20px;
-      text-align: center;
+      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .container {
       background-color: #ffffff;
+      color: #333;
       padding: 40px 30px;
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
       max-width: 600px;
       width: 100%;
       animation: fadeIn 1.5s ease-in-out;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .dark-mode .container {
+      background-color: #2d3436;
+      color: #dcdde1;
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo {
+      width: 80px;
+      height: auto;
+      margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     h1 {
@@ -59,6 +69,10 @@
       line-height: 1.6;
       color: #555;
       margin-bottom: 20px;
+    }
+
+    .dark-mode p {
+      color: #ccc;
     }
 
     .loader {
@@ -76,10 +90,51 @@
       100% { transform: rotate(360deg); }
     }
 
+    .progress-container {
+      width: 100%;
+      background-color: #f1f1f1;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .dark-mode .progress-container {
+      background-color: #555;
+    }
+
+    .progress-bar {
+      height: 20px;
+      width: 0%;
+      background-color: #27ae60;
+      transition: width 0.3s ease-in-out;
+    }
+
     .countdown {
       font-size: 18px;
       color: #888;
-      margin-top: 15px;
+      margin-top: 10px;
+    }
+
+    .dark-mode .countdown {
+      color: #aaa;
+    }
+
+    .toggle-dark {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      cursor: pointer;
+      background: #ecf0f1;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .dark-mode .toggle-dark {
+      background: #718093;
+      color: #fff;
     }
 
     @media (max-width: 600px) {
@@ -99,39 +154,69 @@
 </head>
 <body>
 
-  <div class="container">
-    <h1>Server Upgrade in Progress</h1>
-    <p>Thank you for your patience. Due to the high volume of transactions, we're currently upgrading our servers and database to ensure a smoother and more efficient experience for all users.</p>
-    <p>This maintenance is temporary and we're working hard to complete it as soon as possible. We'll be back online shortly!</p>
-    <p>Thank you for understanding and we appreciate your continued support.</p>
-    <div class="loader"></div>
+  <!-- Dark Mode Toggle -->
+  <button class="toggle-dark" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+  <div class="container" id="main-container">
     
+    <!-- Logo -->
+    <img src="https://via.placeholder.com/80x80?text=Logo" alt="Company Logo" class="logo">
+
+    <h1>Server Upgrade in Progress</h1>
+    
+    <p>Thank you for your patience. Due to the high volume of transactions, we're currently upgrading our servers and database to ensure a smoother and more efficient experience for all users.</p>
+    
+    <p>This maintenance is temporary and we're working hard to complete it as soon as possible. We'll be back online shortly!</p>
+    
+    <p>Thank you for understanding and we appreciate your continued support.</p>
+
+    <div class="loader"></div>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
     <!-- Countdown Timer -->
     <div class="countdown" id="countdown-timer">
       Estimated time remaining: <span id="time">Loading...</span>
     </div>
+
   </div>
 
   <script>
-    // Set estimated downtime in hours
-    let totalHours = 23; // Modify this to change the total estimated hours
-    let timeLeft = totalHours * 60 * 60; // Convert to seconds for countdown logic
+    // === Settings ===
+    const totalHours = 21; // Set estimated hours for maintenance
+    const totalTimeInSeconds = totalHours * 60 * 60;
 
-    const timerElement = document.getElementById("time");
+    const progressBar = document.getElementById("progressBar");
+    const timeDisplay = document.getElementById("time");
+
+    let elapsedSeconds = 0;
 
     const interval = setInterval(() => {
-      if (timeLeft <= 0) {
+      if (elapsedSeconds >= totalTimeInSeconds) {
         clearInterval(interval);
-        timerElement.textContent = "Back online!";
+        timeDisplay.textContent = "Back online!";
+        progressBar.style.width = "100%";
       } else {
-        const hours = Math.floor(timeLeft / 3600);
-        const minutes = Math.floor((timeLeft % 3600) / 60);
-        const seconds = timeLeft % 60;
+        elapsedSeconds++;
+        const percentComplete = (elapsedSeconds / totalTimeInSeconds) * 100;
+        progressBar.style.width = percentComplete + "%";
 
-        timerElement.textContent = `${hours} hour${hours !== 1 ? 's' : ''}, ${minutes} minute${minutes !== 1 ? 's' : ''}`;
-        timeLeft--;
+        const secondsLeft = totalTimeInSeconds - elapsedSeconds;
+        const hours = Math.floor(secondsLeft / 3600);
+        const minutes = Math.floor((secondsLeft % 3600) / 60);
+
+        timeDisplay.textContent = `${hours} hour${hours !== 1 ? 's' : ''}, ${minutes} minute${minutes !== 1 ? 's' : ''}`;
       }
     }, 1000);
+
+    // === Dark Mode Toggle ===
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+      document.getElementById("main-container").classList.toggle("dark-mode");
+    }
   </script>
 
 </body>
