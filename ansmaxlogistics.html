@@ -3,81 +3,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maintenance Mode</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #2c3e50;
-            text-align: center;
-            padding: 50px;
-            margin: 0;
-        }
-        
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 40px;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-            animation: fadeIn 1s;
-        }
-        
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.5);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        h1 {
-            font-size: 36px;
-            font-weight: bold;
-            color: #e74c3c;
-            margin-bottom: 20px;
-        }
-        
-        p {
-            font-size: 18px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-        
-        .loader {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #ccc;
-            border-top: 5px solid #e74c3c;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 20px auto;
-        }
-        
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Under Maintenance | Server Upgrade</title>
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #2c3e50, #34495e);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      max-width: 600px;
+      width: 100%;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: bold;
+      color: #e74c3c;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .loader {
+      width: 50px;
+      height: 50px;
+      margin: 20px auto;
+      border: 5px solid #eee;
+      border-top: 5px solid #e74c3c;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .countdown {
+      font-size: 18px;
+      color: #888;
+      margin-top: 15px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Server Upgrade in Progress</h1>
-        <p>Thank you for your patience. Due to the high volume of transactions, we're currently upgrading our servers and database to ensure a smoother and more efficient experience for all users.</p>
-        <p>This maintenance is temporary and we're working hard to complete it as soon as possible. We'll be back online soon!</p>
-        <p>Thank you for understanding and we appreciate your continued support.</p>
-        <div class="loader"></div>
+
+  <div class="container">
+    <h1>Server Upgrade in Progress</h1>
+    <p>Thank you for your patience. Due to the high volume of transactions, we're currently upgrading our servers and database to ensure a smoother and more efficient experience for all users.</p>
+    <p>This maintenance is temporary and we're working hard to complete it as soon as possible. We'll be back online shortly!</p>
+    <p>Thank you for understanding and we appreciate your continued support.</p>
+    <div class="loader"></div>
+    
+    <!-- Optional Countdown Timer -->
+    <div class="countdown" id="countdown-timer">
+      Estimated time remaining: <span id="time">2 minutes</span>
     </div>
+  </div>
+
+  <script>
+    // Optional countdown script
+    let timeLeft = 120; // seconds
+    const timerElement = document.getElementById("time");
+
+    const interval = setInterval(() => {
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        timerElement.textContent = "Back online!";
+      } else {
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerElement.textContent = `${minutes} minute${minutes !== 1 ? 's' : ''} ${seconds} second${seconds !== 1 ? 's' : ''}`;
+        timeLeft--;
+      }
+    }, 1000);
+  </script>
+
 </body>
 </html>
 
