@@ -106,15 +106,17 @@
     <p>Thank you for understanding and we appreciate your continued support.</p>
     <div class="loader"></div>
     
-    <!-- Optional Countdown Timer -->
+    <!-- Countdown Timer -->
     <div class="countdown" id="countdown-timer">
-      Estimated time remaining: <span id="time">2 minutes</span>
+      Estimated time remaining: <span id="time">Loading...</span>
     </div>
   </div>
 
   <script>
-    // Optional countdown script
-    let timeLeft = 200000; // seconds
+    // Set estimated downtime in hours
+    let totalHours = 4; // Modify this to change the total estimated hours
+    let timeLeft = totalHours * 60 * 60; // Convert to seconds for countdown logic
+
     const timerElement = document.getElementById("time");
 
     const interval = setInterval(() => {
@@ -122,9 +124,11 @@
         clearInterval(interval);
         timerElement.textContent = "Back online!";
       } else {
-        const minutes = Math.floor(timeLeft / 60);
+        const hours = Math.floor(timeLeft / 3600);
+        const minutes = Math.floor((timeLeft % 3600) / 60);
         const seconds = timeLeft % 60;
-        timerElement.textContent = `${minutes} minute${minutes !== 1 ? 's' : ''} ${seconds} second${seconds !== 1 ? 's' : ''}`;
+
+        timerElement.textContent = `${hours} hour${hours !== 1 ? 's' : ''}, ${minutes} minute${minutes !== 1 ? 's' : ''}`;
         timeLeft--;
       }
     }, 1000);
@@ -132,7 +136,6 @@
 
 </body>
 </html>
-
 
 
 <!--
