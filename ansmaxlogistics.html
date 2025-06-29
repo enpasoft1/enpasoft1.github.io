@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Under Maintenance | Server Upgrade</title>
   <style>
-    /* Existing styles from before remain unchanged */
     * {
       margin: 0;
       padding: 0;
@@ -33,7 +32,6 @@
       max-width: 600px;
       width: 100%;
       animation: fadeIn 1.5s ease-in-out;
-      transition: background 0.3s ease, color 0.3s ease;
     }
 
     .dark-mode .container {
@@ -48,11 +46,8 @@
 
     .logo {
       width: 80px;
-      height: auto;
-      margin-bottom: 20px;
+      margin: 0 auto 20px;
       display: block;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     h1 {
@@ -60,6 +55,7 @@
       font-weight: bold;
       color: #e74c3c;
       margin-bottom: 20px;
+      text-align: center;
     }
 
     p {
@@ -67,6 +63,7 @@
       line-height: 1.6;
       color: #555;
       margin-bottom: 20px;
+      text-align: center;
     }
 
     .dark-mode p {
@@ -111,6 +108,7 @@
       font-size: 18px;
       color: #888;
       margin-top: 10px;
+      text-align: center;
     }
 
     .dark-mode .countdown {
@@ -135,16 +133,18 @@
       color: #fff;
     }
 
-    /* === Mini-Games Section === */
+    /* === Games Section === */
     .games-section {
       margin-top: 30px;
-      text-align: left;
+      text-align: center;
     }
 
     .game-tabs {
       display: flex;
       gap: 10px;
-      margin-bottom: 10px;
+      justify-content: center;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
     }
 
     .game-tab {
@@ -157,6 +157,7 @@
 
     .dark-mode .game-tab {
       background: #444;
+      color: #eee;
     }
 
     .game-tab.active {
@@ -170,73 +171,29 @@
 
     .game {
       display: none;
+      margin-top: 10px;
     }
 
     .game.active {
       display: block;
     }
 
-    /* Game-specific styling */
-    #clicker-game {
-      text-align: center;
-    }
-
-    #clicker-button {
-      padding: 15px 30px;
-      font-size: 18px;
-      background: #2ecc71;
-      border: none;
-      color: white;
-      border-radius: 10px;
-      cursor: pointer;
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
       margin-top: 10px;
-    }
-
-    #memory-game {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 10px;
-    }
-
-    .card {
-      width: 60px;
-      height: 60px;
-      background: #ddd;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .card.flipped {
       background: #3498db;
-      color: white;
-    }
-
-    #whack-game {
-      position: relative;
-      height: 150px;
-      background: #f8f9fa;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .mole {
-      position: absolute;
-      bottom: -50px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50px;
-      height: 50px;
-      background: url('https://cdn-icons-png.flaticon.com/512/1163/1163661.png ') no-repeat center / contain;
-      background-color: #fff;
-      border-radius: 50%;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s ease;
+    }
+
+    input[type="number"] {
+      padding: 8px;
+      font-size: 16px;
+      width: 100px;
+      margin-top: 10px;
     }
 
     @media (max-width: 600px) {
@@ -251,10 +208,6 @@
       p {
         font-size: 15px;
       }
-
-      #memory-game {
-        grid-template-columns: repeat(2, 1fr);
-      }
     }
   </style>
 </head>
@@ -265,104 +218,87 @@
 
   <div class="container" id="main-container">
     
-    <!-- Logo -->
     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjPmH7LfbvwZOJUGGEqNkMpy2RBL4RwAT5DcxlN71VFYqPTSv7CM4OBYir_a0qqdsdoj_1WGcyqM22v7yXeRJ9a0uYjUpxff7uZooa45TVQ7BKUxSPz9RZDzkvwJ_UvPnG85QsZXM2Jc5rQPYiprcSCmjKbmeg1K93iS7kuxq4ap0CLzwjsloM6gMWIOSA/s400/AKT%20Logistics_page_1_1.jpg" alt="Company Logo" class="logo">
 
     <h1>Server Upgrade in Progress</h1>
-    
-    <p>Thank you for your patience. Due to the high volume of transactions, we're currently upgrading our servers and database to ensure a smoother and more efficient experience for all users.</p>
-    
-    <p>This maintenance is temporary and we're working hard to complete it as soon as possible. We'll be back online shortly!</p>
-    
-    <p>Thank you for understanding and we appreciate your continued support.</p>
-
+    <p>Thank you for your patience. We’re upgrading our servers to improve your experience.</p>
     <div class="loader"></div>
 
-    <!-- Progress Bar -->
     <div class="progress-container">
       <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <!-- Countdown Timer -->
     <div class="countdown" id="countdown-timer">
       Estimated time remaining: <span id="time">Loading...</span>
     </div>
 
-    <!-- Games Section -->
+    <!-- === Games Section === -->
     <div class="games-section">
-      <h3 style="margin-bottom: 10px;">Pass the Time With Fun:</h3>
+      <h3>Try These Fun Games:</h3>
       <div class="game-tabs">
-        <div class="game-tab active" onclick="switchGame(0)">Clicker</div>
-        <div class="game-tab" onclick="switchGame(1)">Memory</div>
-        <div class="game-tab" onclick="switchGame(2)">Whack-a-Mole</div>
+        <div class="game-tab active" onclick="switchGame(0)">Quiz</div>
+        <div class="game-tab" onclick="switchGame(1)">Number Guess</div>
+        <div class="game-tab" onclick="switchGame(2)">Reaction</div>
       </div>
 
-      <!-- Clicker Game -->
-      <div class="game active" id="clicker-game">
-        <p>Click the button as many times as you can!</p>
-        <p><strong>Clicks:</strong> <span id="click-count">0</span></p>
-        <button id="clicker-button">Click Me!</button>
+      <!-- Quiz Game -->
+      <div class="game active" id="quiz-game">
+        <p><strong id="question">Loading question...</strong></p>
+        <div id="quiz-options"></div>
+        <p id="quiz-result"></p>
       </div>
 
-      <!-- Memory Game -->
-      <div class="game" id="memory-game">
-        <p>Match the pairs!</p>
+      <!-- Number Guess Game -->
+      <div class="game" id="guess-game">
+        <p>Guess the number between 1 and 20</p>
+        <input type="number" id="guess-input" min="1" max="20" placeholder="Enter number">
+        <button onclick="checkGuess()">Submit</button>
+        <p id="guess-result"></p>
       </div>
 
-      <!-- Whack-a-Mole Game -->
-      <div class="game" id="whack-game">
-        <p>Tap the mole when it pops up!</p>
+      <!-- Reaction Game -->
+      <div class="game" id="reaction-game">
+        <p id="reaction-instruction">Click "Start" and wait for the signal...</p>
+        <button id="reaction-btn" onclick="startReaction()">Start</button>
+        <p id="reaction-result"></p>
       </div>
     </div>
-
   </div>
 
   <script>
-    // Live Timer & Progress Bar Logic
-    const startTime = new Date("2025-06-28T18:00:00").getTime(); // When maintenance started
-    const endTime = new Date("2025-06-29T19:00:00").getTime();   // When maintenance will end
+    // Countdown Timer & Progress
+    const startTime = new Date("2025-06-28T18:00:00").getTime();
+    const endTime = new Date("2025-06-29T19:00:00").getTime();
     const progressBar = document.getElementById("progressBar");
     const timeDisplay = document.getElementById("time");
 
     function updateTimer() {
       const now = new Date().getTime();
-
-      if (now < startTime) {
-        timeDisplay.textContent = "Maintenance hasn't started yet.";
-        progressBar.style.width = "0%";
-        return;
-      }
-
       if (now >= endTime) {
         timeDisplay.textContent = "Back online!";
         progressBar.style.width = "100%";
         clearInterval(timerInterval);
         return;
       }
-
-      const totalTime = endTime - startTime;
+      const total = endTime - startTime;
       const elapsed = now - startTime;
       const remaining = endTime - now;
-
-      const hours = Math.floor(remaining / (1000 * 60 * 60));
-      const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
-
-      timeDisplay.textContent = `${hours} hour${hours !== 1 ? 's' : ''}, ${minutes} minute${minutes !== 1 ? 's' : ''}`;
-
-      const percentComplete = (elapsed / totalTime) * 100;
-      progressBar.style.width = percentComplete + "%";
+      const hours = Math.floor(remaining / 3600000);
+      const minutes = Math.floor((remaining % 3600000) / 60000);
+      timeDisplay.textContent = `${hours}h ${minutes}m`;
+      progressBar.style.width = `${(elapsed / total) * 100}%`;
     }
 
     const timerInterval = setInterval(updateTimer, 1000);
     updateTimer();
 
-    // Dark Mode Toggle
+    // Dark Mode
     function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
       document.getElementById("main-container").classList.toggle("dark-mode");
     }
 
-    // Game Switching
+    // Switch Games
     function switchGame(index) {
       const games = document.querySelectorAll(".game");
       const tabs = document.querySelectorAll(".game-tab");
@@ -372,91 +308,77 @@
       });
     }
 
-    // Clicker Game
-    let clickCount = 0;
-    document.getElementById("clicker-button").addEventListener("click", () => {
-      clickCount++;
-      document.getElementById("click-count").textContent = clickCount;
-    });
+    // Quiz Game
+    const questions = [
+      { q: "Capital of France?", a: ["Paris", "Rome", "Madrid", "Berlin"], correct: 0 },
+      { q: "Red Planet?", a: ["Earth", "Mars", "Jupiter", "Venus"], correct: 1 },
+      { q: "Runs in browser?", a: ["Java", "C", "Python", "JavaScript"], correct: 3 }
+    ];
+    let currentQuestion = 0;
 
-    // Memory Game
-    const symbols = ["🍎", "🍌", "🍇", "🍉", "🍍", "🍓", "🍒", "🥝"];
-    const cardElements = [];
-
-    const shuffled = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
-
-    const memoryGame = document.getElementById("memory-game");
-    let flippedCards = [];
-    let matchedPairs = 0;
-
-    shuffled.forEach((symbol, index) => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerText = symbol;
-      card.dataset.symbol = symbol;
-      card.addEventListener("click", () => {
-        if (card.classList.contains("flipped") || flippedCards.length >= 2) return;
-        card.classList.add("flipped");
-        flippedCards.push(card);
-
-        if (flippedCards.length === 2) {
-          const [a, b] = flippedCards;
-          if (a.dataset.symbol === b.dataset.symbol) {
-            matchedPairs++;
-            flippedCards = [];
-            if (matchedPairs === symbols.length) {
-              alert("You matched all pairs!");
-            }
-          } else {
-            setTimeout(() => {
-              a.classList.remove("flipped");
-              b.classList.remove("flipped");
-              flippedCards = [];
-            }, 1000);
-          }
-        }
+    function loadQuiz() {
+      const q = questions[currentQuestion];
+      document.getElementById("question").innerText = q.q;
+      const options = document.getElementById("quiz-options");
+      options.innerHTML = "";
+      q.a.forEach((ans, i) => {
+        const btn = document.createElement("button");
+        btn.textContent = ans;
+        btn.onclick = () => {
+          document.getElementById("quiz-result").innerText =
+            i === q.correct ? "✅ Correct!" : "❌ Wrong!";
+          currentQuestion = (currentQuestion + 1) % questions.length;
+          setTimeout(() => {
+            document.getElementById("quiz-result").innerText = "";
+            loadQuiz();
+          }, 1200);
+        };
+        options.appendChild(btn);
       });
-      memoryGame.appendChild(card);
-    });
+    }
+    loadQuiz();
 
-    // Whack-a-Mole Game
-    let score = 0;
-    let gameRunning = true;
-
-    function spawnMole() {
-      if (!gameRunning) return;
-
-      const whackGame = document.getElementById("whack-game");
-      const mole = document.createElement("div");
-      mole.className = "mole";
-
-      const x = Math.random() * (whackGame.clientWidth - 50);
-      mole.style.left = x + "px";
-      mole.style.bottom = "-50px";
-
-      mole.addEventListener("click", () => {
-        mole.remove();
-        score++;
-        setTimeout(spawnMole, 300);
-      });
-
-      whackGame.appendChild(mole);
-
-      let speed = 2 + Math.random() * 2;
-      mole.animate([
-        { bottom: "-50px" },
-        { bottom: "50px" },
-        { bottom: "-50px" }
-      ], {
-        duration: speed * 1000
-      }).onfinish = () => mole.remove();
-
-      setTimeout(spawnMole, Math.random() * 2000 + 500);
+    // Number Guess Game
+    let secretNumber = Math.floor(Math.random() * 20) + 1;
+    function checkGuess() {
+      const guess = parseInt(document.getElementById("guess-input").value);
+      const result = document.getElementById("guess-result");
+      if (guess === secretNumber) {
+        result.textContent = "🎉 Correct! You guessed it!";
+        secretNumber = Math.floor(Math.random() * 20) + 1;
+      } else {
+        result.textContent = guess > secretNumber ? "Too high!" : "Too low!";
+      }
     }
 
-    spawnMole();
-  </script>
+    // Reaction Game
+    let startTime, reactionTimeout;
+    const reactionBtn = document.getElementById("reaction-btn");
 
+    function startReaction() {
+      document.getElementById("reaction-instruction").textContent = "Wait for green...";
+      reactionBtn.disabled = true;
+      reactionBtn.style.background = "#e74c3c";
+
+      reactionTimeout = setTimeout(() => {
+        startTime = Date.now();
+        reactionBtn.textContent = "Click!";
+        reactionBtn.disabled = false;
+        reactionBtn.style.background = "#2ecc71";
+        reactionBtn.onclick = () => {
+          const reactionTime = Date.now() - startTime;
+          document.getElementById("reaction-result").textContent = `⏱️ Your time: ${reactionTime}ms`;
+          resetReactionButton();
+        };
+      }, Math.random() * 3000 + 1000);
+    }
+
+    function resetReactionButton() {
+      reactionBtn.textContent = "Start";
+      reactionBtn.onclick = startReaction;
+      reactionBtn.style.background = "";
+    }
+  </script>
 </body>
 </html>
 
