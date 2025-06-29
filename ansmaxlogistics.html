@@ -29,7 +29,7 @@
       padding: 40px 30px;
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      max-width: 700px;
+      max-width: 600px;
       width: 100%;
       animation: fadeIn 1.5s ease-in-out;
     }
@@ -46,8 +46,11 @@
 
     .logo {
       width: 80px;
-      margin: 0 auto 20px;
+      height: auto;
+      margin-bottom: 20px;
       display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     h1 {
@@ -55,7 +58,6 @@
       font-weight: bold;
       color: #e74c3c;
       margin-bottom: 20px;
-      text-align: center;
     }
 
     p {
@@ -63,7 +65,6 @@
       line-height: 1.6;
       color: #555;
       margin-bottom: 20px;
-      text-align: center;
     }
 
     .dark-mode p {
@@ -108,7 +109,6 @@
       font-size: 18px;
       color: #888;
       margin-top: 10px;
-      text-align: center;
     }
 
     .dark-mode .countdown {
@@ -133,16 +133,14 @@
       color: #fff;
     }
 
+    /* === Mini-Games Section === */
     .games-section {
       margin-top: 30px;
-      text-align: center;
     }
 
     .game-tabs {
       display: flex;
       gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
       margin-bottom: 10px;
     }
 
@@ -151,7 +149,6 @@
       background: #ecf0f1;
       border-radius: 8px;
       cursor: pointer;
-      transition: background 0.2s;
     }
 
     .dark-mode .game-tab {
@@ -169,89 +166,31 @@
 
     .game {
       display: none;
-      margin-top: 15px;
     }
 
     .game.active {
       display: block;
     }
 
-    #clicker-button {
-      padding: 15px 30px;
-      font-size: 18px;
-      background: #2ecc71;
+    input[type="number"] {
+      padding: 6px;
+      width: 100px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      margin: 5px 0;
+      padding: 8px 16px;
       border: none;
-      color: white;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    #memory-game {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      justify-content: center;
-      margin-top: 10px;
-    }
-
-    .card {
-      width: 60px;
-      height: 60px;
-      background: #ddd;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    .card.flipped {
+      border-radius: 6px;
       background: #3498db;
       color: white;
-    }
-
-    #whack-game {
-      position: relative;
-      height: 150px;
-      background: #f8f9fa;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .mole {
-      position: absolute;
-      bottom: -50px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 50px;
-      height: 50px;
-      background: url('https://cdn-icons-png.flaticon.com/512/1163/1163661.png') no-repeat center / contain;
-      background-color: #fff;
-      border-radius: 50%;
       cursor: pointer;
+      font-weight: bold;
     }
 
-    .rps-btn {
-      padding: 10px 20px;
-      font-size: 16px;
-      background: #9b59b6;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: transform 0.2s, background 0.3s;
-    }
-
-    .rps-btn:hover {
-      background: #8e44ad;
-      transform: scale(1.1);
-    }
-
-    .dark-mode .rps-btn {
-      background: #6c5ce7;
+    button:hover {
+      background: #2980b9;
     }
 
     @media (max-width: 600px) {
@@ -267,19 +206,27 @@
         font-size: 15px;
       }
 
-      #memory-game {
-        grid-template-columns: repeat(2, 1fr);
+      .game-tab {
+        font-size: 14px;
+        padding: 6px 10px;
       }
     }
   </style>
 </head>
 <body>
+
+  <!-- Dark Mode Toggle -->
   <button class="toggle-dark" onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
   <div class="container" id="main-container">
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjPmH7LfbvwZOJUGGEqNkMpy2RBL4RwAT5DcxlN71VFYqPTSv7CM4OBYir_a0qqdsdoj_1WGcyqM22v7yXeRJ9a0uYjUpxff7uZooa45TVQ7BKUxSPz9RZDzkvwJ_UvPnG85QsZXM2Jc5rQPYiprcSCmjKbmeg1K93iS7kuxq4ap0CLzwjsloM6gMWIOSA/s400/AKT%20Logistics_page_1_1.jpg" class="logo" alt="Company Logo">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjPmH7LfbvwZOJUGGEqNkMpy2RBL4RwAT5DcxlN71VFYqPTSv7CM4OBYir_a0qqdsdoj_1WGcyqM22v7yXeRJ9a0uYjUpxff7uZooa45TVQ7BKUxSPz9RZDzkvwJ_UvPnG85QsZXM2Jc5rQPYiprcSCmjKbmeg1K93iS7kuxq4ap0CLzwjsloM6gMWIOSA/s400/AKT%20Logistics_page_1_1.jpg" alt="Company Logo" class="logo">
+
     <h1>Server Upgrade in Progress</h1>
-    <p>We're working hard to upgrade our servers for a better experience. We'll be back shortly. Thank you for your patience!</p>
+
+    <p>Thank you for your patience. Due to the high volume of transactions, we're currently upgrading our servers and database to ensure a smoother and more efficient experience for all users.</p>
+
+    <p>This maintenance is temporary and we're working hard to complete it as soon as possible. We'll be back online shortly!</p>
+
     <div class="loader"></div>
 
     <div class="progress-container">
@@ -290,44 +237,43 @@
       Estimated time remaining: <span id="time">Loading...</span>
     </div>
 
+    <!-- Games Section -->
     <div class="games-section">
-      <h3>Pass the Time With Fun:</h3>
+      <h3 style="margin-bottom: 10px;">New Mini Games</h3>
       <div class="game-tabs">
-        <div class="game-tab active" onclick="switchGame(0)">Clicker</div>
-        <div class="game-tab" onclick="switchGame(1)">Memory</div>
-        <div class="game-tab" onclick="switchGame(2)">Whack-a-Mole</div>
-        <div class="game-tab" onclick="switchGame(3)">Rock-Paper-Scissors</div>
+        <div class="game-tab active" onclick="switchGame(0)">Guess Number</div>
+        <div class="game-tab" onclick="switchGame(1)">Rock Paper Scissors</div>
+        <div class="game-tab" onclick="switchGame(2)">Trivia Quiz</div>
       </div>
 
-      <div class="game active" id="clicker-game">
-        <p>Click the button as many times as you can!</p>
-        <p><strong>Clicks:</strong> <span id="click-count">0</span></p>
-        <button id="clicker-button">Click Me!</button>
+      <!-- Guess the Number -->
+      <div class="game active" id="guess-game">
+        <p>Guess a number between 1 and 10:</p>
+        <input type="number" id="guess-input" min="1" max="10" />
+        <button onclick="checkGuess()">Submit</button>
+        <p id="guess-message"></p>
       </div>
 
-      <div class="game" id="memory-game">
-        <p>Match the pairs!</p>
-      </div>
-
-      <div class="game" id="whack-game">
-        <p>Tap the mole when it pops up!</p>
-      </div>
-
+      <!-- Rock Paper Scissors -->
       <div class="game" id="rps-game">
-        <p>Choose Rock, Paper, or Scissors:</p>
-        <div style="display:flex; gap:10px; justify-content:center; margin:10px 0;">
-          <button class="rps-btn" onclick="playRPS('rock')">🪨 Rock</button>
-          <button class="rps-btn" onclick="playRPS('paper')">📄 Paper</button>
-          <button class="rps-btn" onclick="playRPS('scissors')">✂️ Scissors</button>
-        </div>
-        <p><strong>You:</strong> <span id="user-choice">-</span></p>
-        <p><strong>Computer:</strong> <span id="computer-choice">-</span></p>
-        <p><strong>Result:</strong> <span id="rps-result">-</span></p>
+        <p>Choose your move:</p>
+        <button onclick="playRPS('rock')">🪨 Rock</button>
+        <button onclick="playRPS('paper')">📄 Paper</button>
+        <button onclick="playRPS('scissors')">✂️ Scissors</button>
+        <p id="rps-result"></p>
+      </div>
+
+      <!-- Trivia Quiz -->
+      <div class="game" id="quiz-game">
+        <p id="quiz-question">Loading...</p>
+        <div id="quiz-options"></div>
+        <p id="quiz-feedback"></p>
       </div>
     </div>
   </div>
 
   <script>
+    // Progress Timer
     const startTime = new Date("2025-06-28T18:00:00").getTime();
     const endTime = new Date("2025-06-29T19:00:00").getTime();
     const progressBar = document.getElementById("progressBar");
@@ -346,6 +292,7 @@
         clearInterval(timerInterval);
         return;
       }
+
       const totalTime = endTime - startTime;
       const elapsed = now - startTime;
       const remaining = endTime - now;
@@ -359,11 +306,13 @@
     const timerInterval = setInterval(updateTimer, 1000);
     updateTimer();
 
+    // Dark Mode
     function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
       document.getElementById("main-container").classList.toggle("dark-mode");
     }
 
+    // Tab Switcher
     function switchGame(index) {
       const games = document.querySelectorAll(".game");
       const tabs = document.querySelectorAll(".game-tab");
@@ -373,89 +322,77 @@
       });
     }
 
-    let clickCount = 0;
-    document.getElementById("clicker-button").addEventListener("click", () => {
-      clickCount++;
-      document.getElementById("click-count").textContent = clickCount;
-    });
-
-    const symbols = ["🍎", "🍌", "🍇", "🍉", "🍍", "🍓", "🍒", "🥝"];
-    const shuffled = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
-    const memoryGame = document.getElementById("memory-game");
-    let flippedCards = [];
-    let matchedPairs = 0;
-
-    shuffled.forEach(symbol => {
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerText = symbol;
-      card.dataset.symbol = symbol;
-      card.addEventListener("click", () => {
-        if (card.classList.contains("flipped") || flippedCards.length >= 2) return;
-        card.classList.add("flipped");
-        flippedCards.push(card);
-        if (flippedCards.length === 2) {
-          const [a, b] = flippedCards;
-          if (a.dataset.symbol === b.dataset.symbol) {
-            matchedPairs++;
-            flippedCards = [];
-            if (matchedPairs === symbols.length) {
-              alert("You matched all pairs!");
-            }
-          } else {
-            setTimeout(() => {
-              a.classList.remove("flipped");
-              b.classList.remove("flipped");
-              flippedCards = [];
-            }, 1000);
-          }
-        }
-      });
-      memoryGame.appendChild(card);
-    });
-
-    let score = 0;
-    let gameRunning = true;
-
-    function spawnMole() {
-      if (!gameRunning) return;
-      const whackGame = document.getElementById("whack-game");
-      const mole = document.createElement("div");
-      mole.className = "mole";
-      mole.style.left = Math.random() * (whackGame.clientWidth - 50) + "px";
-      mole.addEventListener("click", () => {
-        mole.remove();
-        score++;
-        setTimeout(spawnMole, 300);
-      });
-      whackGame.appendChild(mole);
-      mole.animate([{ bottom: "-50px" }, { bottom: "50px" }, { bottom: "-50px" }], {
-        duration: 1500
-      }).onfinish = () => mole.remove();
-      setTimeout(spawnMole, Math.random() * 2000 + 500);
+    // Guess the Number Game
+    const randomNum = Math.floor(Math.random() * 10) + 1;
+    function checkGuess() {
+      const guess = parseInt(document.getElementById("guess-input").value);
+      const message = document.getElementById("guess-message");
+      if (guess === randomNum) {
+        message.textContent = "🎉 Correct! You guessed the number!";
+        message.style.color = "green";
+      } else {
+        message.textContent = "❌ Wrong! Try again.";
+        message.style.color = "red";
+      }
     }
 
-    spawnMole();
+    // Rock Paper Scissors Game
+    function playRPS(playerChoice) {
+      const choices = ["rock", "paper", "scissors"];
+      const computer = choices[Math.floor(Math.random() * 3)];
+      const resultDisplay = document.getElementById("rps-result");
 
-    function playRPS(userChoice) {
-      const choices = ['rock', 'paper', 'scissors'];
-      const computerChoice = choices[Math.floor(Math.random() * choices.length)];
-      document.getElementById("user-choice").textContent = userChoice;
-      document.getElementById("computer-choice").textContent = computerChoice;
-
-      let result = '';
-      if (userChoice === computerChoice) result = "It's a tie!";
-      else if (
-        (userChoice === 'rock' && computerChoice === 'scissors') ||
-        (userChoice === 'paper' && computerChoice === 'rock') ||
-        (userChoice === 'scissors' && computerChoice === 'paper')
-      ) result = "You win!";
-      else result = "You lose!";
-      document.getElementById("rps-result").textContent = result;
+      if (playerChoice === computer) {
+        resultDisplay.textContent = `🤝 It's a tie! You both chose ${playerChoice}`;
+      } else if (
+        (playerChoice === "rock" && computer === "scissors") ||
+        (playerChoice === "scissors" && computer === "paper") ||
+        (playerChoice === "paper" && computer === "rock")
+      ) {
+        resultDisplay.textContent = `✅ You win! Computer chose ${computer}`;
+      } else {
+        resultDisplay.textContent = `❌ You lose! Computer chose ${computer}`;
+      }
     }
+
+    // Trivia Quiz Game
+    const quizData = [
+      { question: "Which planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter", "Venus"], answer: "Mars" },
+      { question: "What is the capital of France?", options: ["Rome", "Berlin", "Paris", "Madrid"], answer: "Paris" },
+      { question: "How many continents are there?", options: ["5", "6", "7", "8"], answer: "7" }
+    ];
+
+    let currentQuiz = 0;
+    function loadQuiz() {
+      const q = quizData[currentQuiz];
+      document.getElementById("quiz-question").textContent = q.question;
+      const optionsDiv = document.getElementById("quiz-options");
+      optionsDiv.innerHTML = "";
+      q.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(opt);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    function checkAnswer(selected) {
+      const feedback = document.getElementById("quiz-feedback");
+      const correct = quizData[currentQuiz].answer;
+      feedback.textContent = selected === correct ? "🎉 Correct!" : `❌ Wrong! Answer: ${correct}`;
+      feedback.style.color = selected === correct ? "green" : "red";
+      currentQuiz = (currentQuiz + 1) % quizData.length;
+      setTimeout(() => {
+        feedback.textContent = "";
+        loadQuiz();
+      }, 2000);
+    }
+
+    loadQuiz();
   </script>
 </body>
 </html>
+
 
 
 
