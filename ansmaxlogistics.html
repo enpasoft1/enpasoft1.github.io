@@ -29,7 +29,7 @@
       padding: 40px 30px;
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      max-width: 600px;
+      max-width: 700px;
       width: 100%;
       animation: fadeIn 1.5s ease-in-out;
     }
@@ -133,7 +133,6 @@
       color: #fff;
     }
 
-    /* === Games Section === */
     .games-section {
       margin-top: 30px;
       text-align: center;
@@ -142,9 +141,9 @@
     .game-tabs {
       display: flex;
       gap: 10px;
-      justify-content: center;
-      margin-bottom: 15px;
       flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 10px;
     }
 
     .game-tab {
@@ -157,7 +156,6 @@
 
     .dark-mode .game-tab {
       background: #444;
-      color: #eee;
     }
 
     .game-tab.active {
@@ -171,29 +169,89 @@
 
     .game {
       display: none;
-      margin-top: 10px;
+      margin-top: 15px;
     }
 
     .game.active {
       display: block;
     }
 
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
-      margin-top: 10px;
-      background: #3498db;
-      color: #fff;
+    #clicker-button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background: #2ecc71;
       border: none;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #memory-game {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .card {
+      width: 60px;
+      height: 60px;
+      background: #ddd;
       border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card.flipped {
+      background: #3498db;
+      color: white;
+    }
+
+    #whack-game {
+      position: relative;
+      height: 150px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .mole {
+      position: absolute;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 50px;
+      background: url('https://cdn-icons-png.flaticon.com/512/1163/1163661.png') no-repeat center / contain;
+      background-color: #fff;
+      border-radius: 50%;
       cursor: pointer;
     }
 
-    input[type="number"] {
-      padding: 8px;
+    .rps-btn {
+      padding: 10px 20px;
       font-size: 16px;
-      width: 100px;
-      margin-top: 10px;
+      background: #9b59b6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .rps-btn:hover {
+      background: #8e44ad;
+      transform: scale(1.1);
+    }
+
+    .dark-mode .rps-btn {
+      background: #6c5ce7;
     }
 
     @media (max-width: 600px) {
@@ -208,20 +266,20 @@
       p {
         font-size: 15px;
       }
+
+      #memory-game {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
 <body>
-
-  <!-- Dark Mode Toggle -->
   <button class="toggle-dark" onclick="toggleDarkMode()">Toggle Dark Mode</button>
 
   <div class="container" id="main-container">
-    
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjPmH7LfbvwZOJUGGEqNkMpy2RBL4RwAT5DcxlN71VFYqPTSv7CM4OBYir_a0qqdsdoj_1WGcyqM22v7yXeRJ9a0uYjUpxff7uZooa45TVQ7BKUxSPz9RZDzkvwJ_UvPnG85QsZXM2Jc5rQPYiprcSCmjKbmeg1K93iS7kuxq4ap0CLzwjsloM6gMWIOSA/s400/AKT%20Logistics_page_1_1.jpg" alt="Company Logo" class="logo">
-
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjPmH7LfbvwZOJUGGEqNkMpy2RBL4RwAT5DcxlN71VFYqPTSv7CM4OBYir_a0qqdsdoj_1WGcyqM22v7yXeRJ9a0uYjUpxff7uZooa45TVQ7BKUxSPz9RZDzkvwJ_UvPnG85QsZXM2Jc5rQPYiprcSCmjKbmeg1K93iS7kuxq4ap0CLzwjsloM6gMWIOSA/s400/AKT%20Logistics_page_1_1.jpg" class="logo" alt="Company Logo">
     <h1>Server Upgrade in Progress</h1>
-    <p>Thank you for your patience. We’re upgrading our servers to improve your experience.</p>
+    <p>We're working hard to upgrade our servers for a better experience. We'll be back shortly. Thank you for your patience!</p>
     <div class="loader"></div>
 
     <div class="progress-container">
@@ -232,41 +290,44 @@
       Estimated time remaining: <span id="time">Loading...</span>
     </div>
 
-    <!-- === Games Section === -->
     <div class="games-section">
-      <h3>Try These Fun Games:</h3>
+      <h3>Pass the Time With Fun:</h3>
       <div class="game-tabs">
-        <div class="game-tab active" onclick="switchGame(0)">Quiz</div>
-        <div class="game-tab" onclick="switchGame(1)">Number Guess</div>
-        <div class="game-tab" onclick="switchGame(2)">Reaction</div>
+        <div class="game-tab active" onclick="switchGame(0)">Clicker</div>
+        <div class="game-tab" onclick="switchGame(1)">Memory</div>
+        <div class="game-tab" onclick="switchGame(2)">Whack-a-Mole</div>
+        <div class="game-tab" onclick="switchGame(3)">Rock-Paper-Scissors</div>
       </div>
 
-      <!-- Quiz Game -->
-      <div class="game active" id="quiz-game">
-        <p><strong id="question">Loading question...</strong></p>
-        <div id="quiz-options"></div>
-        <p id="quiz-result"></p>
+      <div class="game active" id="clicker-game">
+        <p>Click the button as many times as you can!</p>
+        <p><strong>Clicks:</strong> <span id="click-count">0</span></p>
+        <button id="clicker-button">Click Me!</button>
       </div>
 
-      <!-- Number Guess Game -->
-      <div class="game" id="guess-game">
-        <p>Guess the number between 1 and 20</p>
-        <input type="number" id="guess-input" min="1" max="20" placeholder="Enter number">
-        <button onclick="checkGuess()">Submit</button>
-        <p id="guess-result"></p>
+      <div class="game" id="memory-game">
+        <p>Match the pairs!</p>
       </div>
 
-      <!-- Reaction Game -->
-      <div class="game" id="reaction-game">
-        <p id="reaction-instruction">Click "Start" and wait for the signal...</p>
-        <button id="reaction-btn" onclick="startReaction()">Start</button>
-        <p id="reaction-result"></p>
+      <div class="game" id="whack-game">
+        <p>Tap the mole when it pops up!</p>
+      </div>
+
+      <div class="game" id="rps-game">
+        <p>Choose Rock, Paper, or Scissors:</p>
+        <div style="display:flex; gap:10px; justify-content:center; margin:10px 0;">
+          <button class="rps-btn" onclick="playRPS('rock')">🪨 Rock</button>
+          <button class="rps-btn" onclick="playRPS('paper')">📄 Paper</button>
+          <button class="rps-btn" onclick="playRPS('scissors')">✂️ Scissors</button>
+        </div>
+        <p><strong>You:</strong> <span id="user-choice">-</span></p>
+        <p><strong>Computer:</strong> <span id="computer-choice">-</span></p>
+        <p><strong>Result:</strong> <span id="rps-result">-</span></p>
       </div>
     </div>
   </div>
 
   <script>
-    // Countdown Timer & Progress
     const startTime = new Date("2025-06-28T18:00:00").getTime();
     const endTime = new Date("2025-06-29T19:00:00").getTime();
     const progressBar = document.getElementById("progressBar");
@@ -274,31 +335,35 @@
 
     function updateTimer() {
       const now = new Date().getTime();
+      if (now < startTime) {
+        timeDisplay.textContent = "Maintenance hasn't started yet.";
+        progressBar.style.width = "0%";
+        return;
+      }
       if (now >= endTime) {
         timeDisplay.textContent = "Back online!";
         progressBar.style.width = "100%";
         clearInterval(timerInterval);
         return;
       }
-      const total = endTime - startTime;
+      const totalTime = endTime - startTime;
       const elapsed = now - startTime;
       const remaining = endTime - now;
-      const hours = Math.floor(remaining / 3600000);
-      const minutes = Math.floor((remaining % 3600000) / 60000);
-      timeDisplay.textContent = `${hours}h ${minutes}m`;
-      progressBar.style.width = `${(elapsed / total) * 100}%`;
+
+      const hours = Math.floor(remaining / (1000 * 60 * 60));
+      const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+      timeDisplay.textContent = `${hours} hour${hours !== 1 ? 's' : ''}, ${minutes} minute${minutes !== 1 ? 's' : ''}`;
+      progressBar.style.width = (elapsed / totalTime) * 100 + "%";
     }
 
     const timerInterval = setInterval(updateTimer, 1000);
     updateTimer();
 
-    // Dark Mode
     function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
       document.getElementById("main-container").classList.toggle("dark-mode");
     }
 
-    // Switch Games
     function switchGame(index) {
       const games = document.querySelectorAll(".game");
       const tabs = document.querySelectorAll(".game-tab");
@@ -308,75 +373,85 @@
       });
     }
 
-    // Quiz Game
-    const questions = [
-      { q: "Capital of France?", a: ["Paris", "Rome", "Madrid", "Berlin"], correct: 0 },
-      { q: "Red Planet?", a: ["Earth", "Mars", "Jupiter", "Venus"], correct: 1 },
-      { q: "Runs in browser?", a: ["Java", "C", "Python", "JavaScript"], correct: 3 }
-    ];
-    let currentQuestion = 0;
+    let clickCount = 0;
+    document.getElementById("clicker-button").addEventListener("click", () => {
+      clickCount++;
+      document.getElementById("click-count").textContent = clickCount;
+    });
 
-    function loadQuiz() {
-      const q = questions[currentQuestion];
-      document.getElementById("question").innerText = q.q;
-      const options = document.getElementById("quiz-options");
-      options.innerHTML = "";
-      q.a.forEach((ans, i) => {
-        const btn = document.createElement("button");
-        btn.textContent = ans;
-        btn.onclick = () => {
-          document.getElementById("quiz-result").innerText =
-            i === q.correct ? "✅ Correct!" : "❌ Wrong!";
-          currentQuestion = (currentQuestion + 1) % questions.length;
-          setTimeout(() => {
-            document.getElementById("quiz-result").innerText = "";
-            loadQuiz();
-          }, 1200);
-        };
-        options.appendChild(btn);
+    const symbols = ["🍎", "🍌", "🍇", "🍉", "🍍", "🍓", "🍒", "🥝"];
+    const shuffled = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
+    const memoryGame = document.getElementById("memory-game");
+    let flippedCards = [];
+    let matchedPairs = 0;
+
+    shuffled.forEach(symbol => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerText = symbol;
+      card.dataset.symbol = symbol;
+      card.addEventListener("click", () => {
+        if (card.classList.contains("flipped") || flippedCards.length >= 2) return;
+        card.classList.add("flipped");
+        flippedCards.push(card);
+        if (flippedCards.length === 2) {
+          const [a, b] = flippedCards;
+          if (a.dataset.symbol === b.dataset.symbol) {
+            matchedPairs++;
+            flippedCards = [];
+            if (matchedPairs === symbols.length) {
+              alert("You matched all pairs!");
+            }
+          } else {
+            setTimeout(() => {
+              a.classList.remove("flipped");
+              b.classList.remove("flipped");
+              flippedCards = [];
+            }, 1000);
+          }
+        }
       });
-    }
-    loadQuiz();
+      memoryGame.appendChild(card);
+    });
 
-    // Number Guess Game
-    let secretNumber = Math.floor(Math.random() * 20) + 1;
-    function checkGuess() {
-      const guess = parseInt(document.getElementById("guess-input").value);
-      const result = document.getElementById("guess-result");
-      if (guess === secretNumber) {
-        result.textContent = "🎉 Correct! You guessed it!";
-        secretNumber = Math.floor(Math.random() * 20) + 1;
-      } else {
-        result.textContent = guess > secretNumber ? "Too high!" : "Too low!";
-      }
-    }
+    let score = 0;
+    let gameRunning = true;
 
-    // Reaction Game
-    let startTime, reactionTimeout;
-    const reactionBtn = document.getElementById("reaction-btn");
-
-    function startReaction() {
-      document.getElementById("reaction-instruction").textContent = "Wait for green...";
-      reactionBtn.disabled = true;
-      reactionBtn.style.background = "#e74c3c";
-
-      reactionTimeout = setTimeout(() => {
-        startTime = Date.now();
-        reactionBtn.textContent = "Click!";
-        reactionBtn.disabled = false;
-        reactionBtn.style.background = "#2ecc71";
-        reactionBtn.onclick = () => {
-          const reactionTime = Date.now() - startTime;
-          document.getElementById("reaction-result").textContent = `⏱️ Your time: ${reactionTime}ms`;
-          resetReactionButton();
-        };
-      }, Math.random() * 3000 + 1000);
+    function spawnMole() {
+      if (!gameRunning) return;
+      const whackGame = document.getElementById("whack-game");
+      const mole = document.createElement("div");
+      mole.className = "mole";
+      mole.style.left = Math.random() * (whackGame.clientWidth - 50) + "px";
+      mole.addEventListener("click", () => {
+        mole.remove();
+        score++;
+        setTimeout(spawnMole, 300);
+      });
+      whackGame.appendChild(mole);
+      mole.animate([{ bottom: "-50px" }, { bottom: "50px" }, { bottom: "-50px" }], {
+        duration: 1500
+      }).onfinish = () => mole.remove();
+      setTimeout(spawnMole, Math.random() * 2000 + 500);
     }
 
-    function resetReactionButton() {
-      reactionBtn.textContent = "Start";
-      reactionBtn.onclick = startReaction;
-      reactionBtn.style.background = "";
+    spawnMole();
+
+    function playRPS(userChoice) {
+      const choices = ['rock', 'paper', 'scissors'];
+      const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+      document.getElementById("user-choice").textContent = userChoice;
+      document.getElementById("computer-choice").textContent = computerChoice;
+
+      let result = '';
+      if (userChoice === computerChoice) result = "It's a tie!";
+      else if (
+        (userChoice === 'rock' && computerChoice === 'scissors') ||
+        (userChoice === 'paper' && computerChoice === 'rock') ||
+        (userChoice === 'scissors' && computerChoice === 'paper')
+      ) result = "You win!";
+      else result = "You lose!";
+      document.getElementById("rps-result").textContent = result;
     }
   </script>
 </body>
