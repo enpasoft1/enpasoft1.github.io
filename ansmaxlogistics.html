@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Under Maintenance | Server Upgrade</title>
   <style>
-    /* Reset */
+    /* Existing styles from before remain unchanged */
     * {
       margin: 0;
       padding: 0;
@@ -137,6 +135,110 @@
       color: #fff;
     }
 
+    /* === Mini-Games Section === */
+    .games-section {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .game-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .game-tab {
+      padding: 8px 16px;
+      background: #ecf0f1;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .dark-mode .game-tab {
+      background: #444;
+    }
+
+    .game-tab.active {
+      background: #3498db;
+      color: white;
+    }
+
+    .dark-mode .game-tab.active {
+      background: #1abc9c;
+    }
+
+    .game {
+      display: none;
+    }
+
+    .game.active {
+      display: block;
+    }
+
+    /* Game-specific styling */
+    #clicker-game {
+      text-align: center;
+    }
+
+    #clicker-button {
+      padding: 15px 30px;
+      font-size: 18px;
+      background: #2ecc71;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    #memory-game {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .card {
+      width: 60px;
+      height: 60px;
+      background: #ddd;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card.flipped {
+      background: #3498db;
+      color: white;
+    }
+
+    #whack-game {
+      position: relative;
+      height: 150px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .mole {
+      position: absolute;
+      bottom: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 50px;
+      height: 50px;
+      background: url('https://cdn-icons-png.flaticon.com/512/1163/1163661.png ') no-repeat center / contain;
+      background-color: #fff;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
     @media (max-width: 600px) {
       .container {
         padding: 30px 20px;
@@ -149,6 +251,10 @@
       p {
         font-size: 15px;
       }
+
+      #memory-game {
+        grid-template-columns: repeat(2, 1fr);
+      }
     }
   </style>
 </head>
@@ -160,8 +266,7 @@
   <div class="container" id="main-container">
     
     <!-- Logo -->
-   <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjPmH7LfbvwZOJUGGEqNkMpy2RBL4RwAT5DcxlN71VFYqPTSv7CM4OBYir_a0qqdsdoj_1WGcyqM22v7yXeRJ9a0uYjUpxff7uZooa45TVQ7BKUxSPz9RZDzkvwJ_UvPnG85QsZXM2Jc5rQPYiprcSCmjKbmeg1K93iS7kuxq4ap0CLzwjsloM6gMWIOSA/s400/AKT%20Logistics_page_1_1.jpg" alt="Company Logo">
-
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjPmH7LfbvwZOJUGGEqNkMpy2RBL4RwAT5DcxlN71VFYqPTSv7CM4OBYir_a0qqdsdoj_1WGcyqM22v7yXeRJ9a0uYjUpxff7uZooa45TVQ7BKUxSPz9RZDzkvwJ_UvPnG85QsZXM2Jc5rQPYiprcSCmjKbmeg1K93iS7kuxq4ap0CLzwjsloM6gMWIOSA/s400/AKT%20Logistics_page_1_1.jpg" alt="Company Logo" class="logo">
 
     <h1>Server Upgrade in Progress</h1>
     
@@ -183,13 +288,39 @@
       Estimated time remaining: <span id="time">Loading...</span>
     </div>
 
+    <!-- Games Section -->
+    <div class="games-section">
+      <h3 style="margin-bottom: 10px;">Pass the Time With Fun:</h3>
+      <div class="game-tabs">
+        <div class="game-tab active" onclick="switchGame(0)">Clicker</div>
+        <div class="game-tab" onclick="switchGame(1)">Memory</div>
+        <div class="game-tab" onclick="switchGame(2)">Whack-a-Mole</div>
+      </div>
+
+      <!-- Clicker Game -->
+      <div class="game active" id="clicker-game">
+        <p>Click the button as many times as you can!</p>
+        <p><strong>Clicks:</strong> <span id="click-count">0</span></p>
+        <button id="clicker-button">Click Me!</button>
+      </div>
+
+      <!-- Memory Game -->
+      <div class="game" id="memory-game">
+        <p>Match the pairs!</p>
+      </div>
+
+      <!-- Whack-a-Mole Game -->
+      <div class="game" id="whack-game">
+        <p>Tap the mole when it pops up!</p>
+      </div>
+    </div>
+
   </div>
 
   <script>
-    // === Set Start and End Times Here ===
+    // Live Timer & Progress Bar Logic
     const startTime = new Date("2025-06-28T18:00:00").getTime(); // When maintenance started
     const endTime = new Date("2025-06-29T19:00:00").getTime();   // When maintenance will end
-
     const progressBar = document.getElementById("progressBar");
     const timeDisplay = document.getElementById("time");
 
@@ -222,19 +353,113 @@
       progressBar.style.width = percentComplete + "%";
     }
 
-    // Update every second
     const timerInterval = setInterval(updateTimer, 1000);
-    updateTimer(); // Initial call
+    updateTimer();
 
-    // === Dark Mode Toggle ===
+    // Dark Mode Toggle
     function toggleDarkMode() {
       document.body.classList.toggle("dark-mode");
       document.getElementById("main-container").classList.toggle("dark-mode");
     }
+
+    // Game Switching
+    function switchGame(index) {
+      const games = document.querySelectorAll(".game");
+      const tabs = document.querySelectorAll(".game-tab");
+      games.forEach((g, i) => {
+        g.classList.toggle("active", i === index);
+        tabs[i].classList.toggle("active", i === index);
+      });
+    }
+
+    // Clicker Game
+    let clickCount = 0;
+    document.getElementById("clicker-button").addEventListener("click", () => {
+      clickCount++;
+      document.getElementById("click-count").textContent = clickCount;
+    });
+
+    // Memory Game
+    const symbols = ["🍎", "🍌", "🍇", "🍉", "🍍", "🍓", "🍒", "🥝"];
+    const cardElements = [];
+
+    const shuffled = [...symbols, ...symbols].sort(() => Math.random() - 0.5);
+
+    const memoryGame = document.getElementById("memory-game");
+    let flippedCards = [];
+    let matchedPairs = 0;
+
+    shuffled.forEach((symbol, index) => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerText = symbol;
+      card.dataset.symbol = symbol;
+      card.addEventListener("click", () => {
+        if (card.classList.contains("flipped") || flippedCards.length >= 2) return;
+        card.classList.add("flipped");
+        flippedCards.push(card);
+
+        if (flippedCards.length === 2) {
+          const [a, b] = flippedCards;
+          if (a.dataset.symbol === b.dataset.symbol) {
+            matchedPairs++;
+            flippedCards = [];
+            if (matchedPairs === symbols.length) {
+              alert("You matched all pairs!");
+            }
+          } else {
+            setTimeout(() => {
+              a.classList.remove("flipped");
+              b.classList.remove("flipped");
+              flippedCards = [];
+            }, 1000);
+          }
+        }
+      });
+      memoryGame.appendChild(card);
+    });
+
+    // Whack-a-Mole Game
+    let score = 0;
+    let gameRunning = true;
+
+    function spawnMole() {
+      if (!gameRunning) return;
+
+      const whackGame = document.getElementById("whack-game");
+      const mole = document.createElement("div");
+      mole.className = "mole";
+
+      const x = Math.random() * (whackGame.clientWidth - 50);
+      mole.style.left = x + "px";
+      mole.style.bottom = "-50px";
+
+      mole.addEventListener("click", () => {
+        mole.remove();
+        score++;
+        setTimeout(spawnMole, 300);
+      });
+
+      whackGame.appendChild(mole);
+
+      let speed = 2 + Math.random() * 2;
+      mole.animate([
+        { bottom: "-50px" },
+        { bottom: "50px" },
+        { bottom: "-50px" }
+      ], {
+        duration: speed * 1000
+      }).onfinish = () => mole.remove();
+
+      setTimeout(spawnMole, Math.random() * 2000 + 500);
+    }
+
+    spawnMole();
   </script>
 
 </body>
 </html>
+
 
 
 <!--
