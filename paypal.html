@@ -8,6 +8,65 @@
   <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/415/415733.png">
 
   <style>
+
+    .dev-name {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: var(--accent);
+  text-shadow: 0 0 8px rgba(255,196,57,0.8),
+               0 0 12px rgba(255,196,57,0.6);
+  letter-spacing: 0.5px;
+  animation: glowText 2s ease-in-out infinite alternate;
+}
+
+/* Glowing animation */
+@keyframes glowText {
+  from {
+    text-shadow: 0 0 6px rgba(255,196,57,0.6),
+                 0 0 12px rgba(255,196,57,0.4);
+  }
+  to {
+    text-shadow: 0 0 12px rgba(255,196,57,1),
+                 0 0 20px rgba(255,196,57,0.9);
+  }
+}
+
+    .dev-photo {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0.5rem auto 1rem;
+  border: 3px solid var(--accent);
+  box-shadow: 0 0 12px rgba(255,196,57,0.6);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+}
+
+.dev-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* Scale effect on hover */
+.dev-photo:hover {
+  transform: scale(2.2);
+  box-shadow: 0 0 20px rgba(255,196,57,0.9);
+}
+
+.dev-photo:hover img {
+  transform: scale(1.1);
+}
+
+/* Slight shrink when clicked */
+.dev-photo:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 10px rgba(255,196,57,0.7);
+}
+
     :root {
       --accent: #ffc439;
       --dark: #111827;
