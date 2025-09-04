@@ -2,70 +2,221 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Buy me a coffee – support my work</title>
+  <title>Buy me a coffee – Support My Work</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="If my work saves you time, consider buying me a coffee. Thank you!">
-  <meta name="theme-color" content="#ffc439">
-  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQnV5IG1lIGEgY29mZmVlIiwic2hvcnRfbmFtZSI6IkNvZmZlZSIsInN0YXJ0X3VybCI6Ii4iLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2ZhZmFmYSIsInRoZW1lX2NvbG9yIjoiI2ZmYzQzOSIsImRpc3BsYXkiOiJzdGFuZGFsb25lIn0=">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>☕</text></svg>">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/415/415733.png">
 
   <style>
-    :root{
-      --accent:#ffc439;
-      --dark:#1a1a1a;
-      --light:#fafafa;
-      --card:#ffffff;
-      --radius:16px;
-      --shadow:0 10px 30px rgba(0,0,0,.08);
+    :root {
+      --accent: #ffc439;
+      --dark: #111827;
+      --light: #f8fafc;
+      --card: rgba(255,255,255,0.1);
+      --radius: 18px;
+      --shadow: 0 12px 32px rgba(0,0,0,.25);
+      --gradient: linear-gradient(135deg, #ffdd57, #fbbf24, #f59e0b);
     }
-    @media (prefers-color-scheme:dark){
-      :root{--dark:#fafafa;--light:#121212;--card:#1e1e1e}
+    [data-theme="dark"] {
+      --dark: #f8fafc;
+      --light: #0a0f1a;
+      --card: rgba(30,41,59,0.7);
     }
-    [data-theme="dark"]{--dark:#fafafa;--light:#121212;--card:#1e1e1e}
-    [data-theme="light"]{--dark:#1a1a1a;--light:#fafafa;--card:#ffffff}
 
-    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;font-family:Inter,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif}
-    body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:var(--light);color:var(--dark);padding:1rem;transition:background .3s ease}
-    .card{width:100%;max-width:420px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:2.5rem 2rem;text-align:center}
-    .logo{width:80px;height:80px;margin:0 auto 1rem;border-radius:50%;background:var(--accent);display:grid;place-content:center;font-size:45px}
-    h1{font-size:1.5rem;margin-bottom:.25rem}
-    p{margin-bottom:1.5rem;color:#555}
-    .amounts{display:flex;gap:.5rem;justify-content:center;margin-bottom:1rem;flex-wrap:wrap}
-    .amounts button{flex:1 1 80px;padding:.6rem .5rem;border:2px solid var(--accent);background:transparent;color:var(--dark);border-radius:8px;font-weight:600;cursor:pointer;transition:all .2s ease}
-    .amounts button:hover,.amounts button:focus{background:var(--accent)}
-    .amounts button.selected{background:var(--accent);color:#000}
-    #paypal-btn-container{min-height:45px}
-    footer{margin-top:2rem;font-size:.75rem;color:#888}
-    .theme-toggle{position:absolute;top:1rem;right:1rem;background:transparent;border:none;font-size:1.2rem;cursor:pointer;color:var(--dark)}
-    @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+    * {
+      box-sizing: border-box;
+      margin: 0; padding: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+    }
+
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: var(--dark);
+      padding: 1rem;
+      background: radial-gradient(circle at top left, #0ea5e9, #1e293b 50%, #0a0f1a);
+      overflow: hidden;
+    }
+
+    /* Animated glowing background shapes */
+    body::before, body::after {
+      content: "";
+      position: absolute;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,196,57,0.5), transparent 70%);
+      animation: float 12s ease-in-out infinite;
+      z-index: -1;
+    }
+    body::after {
+      top: 50%; left: 70%;
+      background: radial-gradient(circle, rgba(59,130,246,0.5), transparent 70%);
+      animation-delay: -6s;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-40px) scale(1.1); }
+    }
+
+    /* Logo top-left */
+    .logo {
+      position: fixed;
+      top: 1rem; left: 1rem;
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 15px rgba(255,196,57,0.8);
+      z-index: 1000;
+      background: #fff;
+    }
+    .logo img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* Theme toggle top-right */
+    .theme-toggle {
+      position: fixed;
+      top: 1rem; right: 1rem;
+      width: 45px; height: 45px;
+      border-radius: 50%;
+      border: none;
+      background: var(--gradient);
+      color: #000;
+      font-size: 1.2rem;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+    }
+    .theme-toggle:hover { transform: rotate(15deg) scale(1.1); }
+
+    /* Card */
+    .card {
+      width: 100%;
+      max-width: 480px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      backdrop-filter: blur(15px) saturate(140%);
+      border: 1px solid rgba(255,255,255,0.15);
+      animation: fadeIn 1.2s ease forwards;
+      transform: translateY(30px);
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Developer photo */
+    .dev-photo {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0.5rem auto;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 12px rgba(255,196,57,0.6);
+    }
+    .dev-photo img { width: 100%; height: 100%; object-fit: cover; }
+    .dev-name {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+      color: var(--dark);
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      color: #e2e8f0;
+      font-size: 1rem;
+    }
+
+    /* Amount buttons */
+    .amounts {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .amounts button {
+      flex: 1 1 90px;
+      padding: 0.7rem;
+      border-radius: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      background: rgba(255,255,255,0.15);
+      border: 2px solid var(--accent);
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+    .amounts button:hover,
+    .amounts button.selected {
+      background: var(--gradient);
+      color: #000;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+    }
+
+    #paypal-btn-container { min-height: 50px; }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 1.5rem; }
+      .amounts button { flex: 1 1 45%; }
+    }
   </style>
 </head>
 <body>
-  <button class="theme-toggle" aria-label="Toggle theme" title="Toggle theme">🌗</button>
+  <!-- Logo -->
+  <div class="logo">
+     <img src="https://lh3.googleusercontent.com/p/AF1QipNDLM2DygqngXiXIGJdTU9QZy0fHGXeIvL3yNtW=s1360-w1360-h1020-rw" alt="Logo">
+  </div>
 
+  <!-- Theme toggle -->
+  <button class="theme-toggle" aria-label="Toggle theme">🌗</button>
+
+  <!-- Main Card -->
   <div class="card">
-    <div class="logo">☕</div>
+    <div class="dev-photo">
+      <img src="https://lh3.googleusercontent.com/d/11dxY0z3v75lD-6zrQm5z45sG08UQxhH0" alt="Developer">
+    </div>
+    <div class="dev-name">Developed by Ernest Ansah</div>
+
     <h1>Buy me a coffee</h1>
     <p>If my work saves you time, consider supporting me. Thank you! 🙏</p>
 
     <div class="amounts">
-      <button data-amount="3" class="selected">$3</button>
-      <button data-amount="5">$5</button>
-      <button data-amount="10">$10</button>
-      <button data-amount="custom">Custom</button>
+      <button data-amount="1" class="selected">$1</button>
+      <button data-amount="2">$2</button>
+      <button data-amount="3">$3</button>
+      <button data-amount="Any Amount</button>
     </div>
 
-    <!-- PayPal hosted-button will be injected here -->
     <div id="paypal-btn-container"></div>
 
-    <footer>Secured by PayPal · Any card or PayPal balance.</footer>
+    <footer>☕ Secured by PayPal · Any card or PayPal balance.</footer>
   </div>
 
-  <!-- PayPal SDK (hosted-buttons component) -->
+  <!-- PayPal SDK -->
   <script src="https://www.paypal.com/sdk/js?client-id=BAAg-WR-pOIy-DtWiY31ANY4fIPJ9arM5FIIxaGTIndXsrU_J6LHbNgU3Vc6cQyApkL9bikgHY1YCB8oKA&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
 
   <script>
-    /* ---------- theme ---------- */
     const toggle = document.querySelector('.theme-toggle');
     const stored = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     document.documentElement.setAttribute('data-theme', stored);
@@ -76,33 +227,21 @@
       localStorage.setItem('theme', next);
     });
 
-    /* ---------- map amount → hosted-button id ---------- */
-    /*  Replace the ids below with the ones PayPal gives you for each button. */
     const map = {
-      3: 'M6VZQYFGC99ZC',   // you already have this one
-      5: '5USD_BUTTON_ID',  // <— create 5 USD button and paste id here
-      10: '10USD_BUTTON_ID', // <— create 10 USD button and paste id here
-      custom: 'CUSTOM_BUTTON_ID' // <— create “ buyer enters amount” button
+      3: 'M6VZQYFGC99ZC',
+      5: '5USD_BUTTON_ID',
+      10: '10USD_BUTTON_ID',
+      custom: 'CUSTOM_BUTTON_ID'
     };
-
-    /* ---------- amount picker ---------- */
     const container = document.getElementById('paypal-btn-container');
     const buttons = document.querySelectorAll('.amounts button');
 
     function loadButton(amount) {
-      // clear previous
       container.innerHTML = '';
-      // mark UI
       buttons.forEach(b => b.classList.toggle('selected', b.dataset.amount === amount));
-      // render hosted button
-      window.paypal.HostedButtons({
-        hostedButtonId: map[amount]
-      }).render('#paypal-btn-container');
+      window.paypal.HostedButtons({ hostedButtonId: map[amount] }).render('#paypal-btn-container');
     }
-
     buttons.forEach(b => b.addEventListener('click', () => loadButton(b.dataset.amount)));
-
-    /* initial load */
     loadButton('3');
   </script>
 </body>
