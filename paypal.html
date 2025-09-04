@@ -6,13 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="If my work saves you time, consider buying me a coffee. Thank you!">
   <meta name="theme-color" content="#ffc439">
-
-  <!-- PWA -->
   <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiQnV5IG1lIGEgY29mZmVlIiwic2hvcnRfbmFtZSI6IkNvZmZlZSIsInN0YXJ0X3VybCI6Ii4iLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2ZhZmFmYSIsInRoZW1lX2NvbG9yIjoiI2ZmYzQzOSIsImRpc3BsYXkiOiJzdGFuZGFsb25lIn0=">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75'>☕</text></svg>">
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -39,8 +34,6 @@
     .amounts button{flex:1 1 80px;padding:.6rem .5rem;border:2px solid var(--accent);background:transparent;color:var(--dark);border-radius:8px;font-weight:600;cursor:pointer;transition:all .2s ease}
     .amounts button:hover,.amounts button:focus{background:var(--accent)}
     .amounts button.selected{background:var(--accent);color:#000}
-    #custom-input{max-width:120px;margin:0 auto 1rem;display:none}
-    #custom-input input{width:100%;padding:.6rem;border:2px solid var(--accent);border-radius:8px;text-align:center;font-size:1rem}
     #paypal-btn-container{min-height:45px}
     footer{margin-top:2rem;font-size:.75rem;color:#888}
     .theme-toggle{position:absolute;top:1rem;right:1rem;background:transparent;border:none;font-size:1.2rem;cursor:pointer;color:var(--dark)}
@@ -56,22 +49,19 @@
     <p>If my work saves you time, consider supporting me. Thank you! 🙏</p>
 
     <div class="amounts">
-      <button data-val="3">$3</button>
-      <button data-val="5">$5</button>
-      <button data-val="10">$10</button>
-      <button id="custom-btn">Custom</button>
+      <button data-amount="3" class="selected">$3</button>
+      <button data-amount="5">$5</button>
+      <button data-amount="10">$10</button>
+      <button data-amount="custom">Custom</button>
     </div>
 
-    <div id="custom-input">
-      <input id="custom-amount" type="number" min="1" step="0.5" placeholder="5">
-    </div>
-
+    <!-- PayPal hosted-button will be injected here -->
     <div id="paypal-btn-container"></div>
 
     <footer>Secured by PayPal · Any card or PayPal balance.</footer>
   </div>
 
-  <!-- PayPal SDK -->
+  <!-- PayPal SDK (hosted-buttons component) -->
   <script src="https://www.paypal.com/sdk/js?client-id=BAAg-WR-pOIy-DtWiY31ANY4fIPJ9arM5FIIxaGTIndXsrU_J6LHbNgU3Vc6cQyApkL9bikgHY1YCB8oKA&components=hosted-buttons&disable-funding=venmo&currency=USD"></script>
 
   <script>
@@ -86,44 +76,34 @@
       localStorage.setItem('theme', next);
     });
 
-    /* ---------- amount logic ---------- */
-    const buttons = document.querySelectorAll('.amounts button[data-val]');
-    const customBtn = document.getElementById('custom-btn');
-    const customInput = document.getElementById('custom-input');
-    const customField = document.getElementById('custom-amount');
-    let selectedAmount = 3;
+    /* ---------- map amount → hosted-button id ---------- */
+    /*  Replace the ids below with the ones PayPal gives you for each button. */
+    const map = {
+      3: 'M6VZQYFGC99ZC',   // you already have this one
+      5: '5USD_BUTTON_ID',  // <— create 5 USD button and paste id here
+      10: '10USD_BUTTON_ID', // <— create 10 USD button and paste id here
+      custom: 'CUSTOM_BUTTON_ID' // <— create “ buyer enters amount” button
+    };
 
-    function selectAmount(val) {
-      selectedAmount = val;
-      buttons.forEach(b => b.classList.toggle('selected', Number(b.dataset.val) === val));
-      customInput.style.display = 'none';
+    /* ---------- amount picker ---------- */
+    const container = document.getElementById('paypal-btn-container');
+    const buttons = document.querySelectorAll('.amounts button');
+
+    function loadButton(amount) {
+      // clear previous
+      container.innerHTML = '';
+      // mark UI
+      buttons.forEach(b => b.classList.toggle('selected', b.dataset.amount === amount));
+      // render hosted button
+      window.paypal.HostedButtons({
+        hostedButtonId: map[amount]
+      }).render('#paypal-btn-container');
     }
-    buttons.forEach(b => b.addEventListener('click', () => selectAmount(Number(b.dataset.val))));
-    customBtn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('selected'));
-      customInput.style.display = 'block';
-      customField.focus();
-      selectedAmount = Number(customField.value) || 5;
-    });
-    customField.addEventListener('input', () => selectedAmount = Number(customField.value) || 5);
 
-    /* ---------- PayPal ---------- */
-    window.paypal.Buttons({
-      style: { color: 'gold', shape: 'pill', label: 'pay' },
-      createOrder: (data, actions) => {
-        return actions.order.create({
-          purchase_units: [{
-            amount: { value: selectedAmount.toFixed(2) }
-          }]
-        });
-      },
-      onApprove: (data, actions) => {
-        return actions.order.capture().then(details => {
-          alert('Thank you ' + details.payer.name.given_name + ' ☕');
-        });
-      },
-      onError: err => console.error(err)
-    }).render('#paypal-btn-container');
+    buttons.forEach(b => b.addEventListener('click', () => loadButton(b.dataset.amount)));
+
+    /* initial load */
+    loadButton('3');
   </script>
 </body>
 </html>
