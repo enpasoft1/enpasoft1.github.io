@@ -247,6 +247,17 @@ body {
       h1 { font-size: 1.5rem; }
       .amounts button { flex: 1 1 45%; }
     }
+     .card {
+      width:100%;
+      max-width:440px;
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:2.8rem 2rem;
+      text-align:center;
+      transition:all .3s ease;
+      animation: fadeIn 0.8s ease;
+    }
   </style>
 </head>
 <body>
@@ -264,7 +275,7 @@ body {
      <img src="https://lh3.googleusercontent.com/d/11dxY0z3v75lD-6zrQm5z45sG08UQxhH0" alt="Developer">
     </div>
     <div class="dev-name">Developed by Ernest Ansah</div>
-
+<div class="card">
     <h1>Buy me a coffee</h1>
     <p>If my work saves you time, consider supporting me. Thank you! 🙏</p>
  <div class="logo">☕</div>
@@ -274,7 +285,7 @@ body {
       <button data-amount="3" class="selected">$3</button>
     </div>
 <p> Support me with any amount Thank you! 🙏</p>
-
+</div>
     <div id="paypal-btn-container"></div>
 
     <footer>☕ Secured by PayPal · Any card or PayPal balance.</footer>
