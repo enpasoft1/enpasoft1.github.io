@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+                            <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -32,6 +32,8 @@
         <h2 class="section-legend"><i class="fas fa-crown" style="color: var(--primary);"></i> choose your battleground</h2>
 
         <div class="class-grid">
+            <div class="class-card" onclick="loadIframe('KG 1')"><span>Basic One</span><i class="fas fa-chevron-circle-right"></i></div>
+            <div class="class-card" onclick="loadIframe('KG 2')"><span>Basic Two</span><i class="fas fa-chevron-circle-right"></i></div>
             <div class="class-card" onclick="loadIframe('Basic One')"><span>Basic One</span><i class="fas fa-chevron-circle-right"></i></div>
             <div class="class-card" onclick="loadIframe('Basic Two')"><span>Basic Two</span><i class="fas fa-chevron-circle-right"></i></div>
             <div class="class-card" onclick="loadIframe('Basic Three')"><span>Basic Three</span><i class="fas fa-chevron-circle-right"></i></div>
@@ -366,20 +368,23 @@ iframe {
 <!-- ================= SCRIPT (enhanced, same logic but with powerful loader) ================= -->
 <script>
 // LINK MAP (same as original)
-const buttonLinks = {
+  const buttonLinks = {
+    "KG 1": "https://script.google.com/macros/s/AKfycbw3zEQuG8sywIFey6ndV9yomkom9H5_wq0hzJJKsxuJ00E2NI4t6r7DSVL6nxtJrAIvTA/exec",
+    "KG 2": "https://script.google.com/macros/s/AKfycbxEcMUv1o0ZKkZA6RNt3BJBEFkiN8zjCYqMCVUMFe47Yo1C0i4X8B6wlioEngV2YmBySQ/exec",
     "Basic One": "https://script.google.com/macros/s/AKfycbxjH7AU4CXi2uN_WAkzsINGnzmywyMmZuxrqDQo5H6Zs8bxQXc53SGptbBdwNRznl5GLg/exec",
-    "Basic Two": "https://script.google.com/macros/s/AKfycbwR506Iw19vFoz6Wn_ctNAIdhgjYqDST2nBg7V7uYcPqBZT5JNmFKwGaL60X3MRb2tx/exec",
-    "Basic Three": "https://script.google.com/macros/s/AKfycbya1aznyrjdTt0lRjs7TduvACOLiHuo3C9zY0WuUU8BDHcEPfN3BEiVWNH5LlszesFawQ/exec",
-    "Basic Four": "https://script.google.com/macros/s/AKfycbz1M6M-rX46taR8fjhSveHKUfbFDivxp8vje9cad3FpqPI0NDEo0kbe7BTZIzfHYZ7yBQ/exec",
-    "Basic Five": "https://script.google.com/macros/s/AKfycbyOj077pW5EjzVVzFRRvvpr7bQ86BgNv03ghklI_WetCdrGf9GNHy8j3lvZNiGEb5r5/exec",
-    "Basic Six": "https://script.google.com/macros/s/AKfycbw0gAT9DlzWkiDz71DWv1p3iEdszVuLR11XGfGQasETFAybRmVsnQSbyvtPPg3gsJH8jA/exec",
-    "Basic Seven": "https://script.google.com/macros/s/AKfycbwWhrZbJHcZlTsnzYdkgGpb1O3WU4afW8DNxlkg3VC4oAqa24uRAxnNLrAT61F7tev1/exec",
-    "Basic Eight": "https://script.google.com/macros/s/AKfycbzQv4VE6ymlYX9rm1MPKNKlvi2zbiwOwgjZLjbKGlVULFDR98hrt1KfeZshUozKKz9kzQ/exec",
+    "Basic Two": "https://script.google.com/macros/s/AKfycbwG6er1gVL16hj1qorobZEllwL0H-DZj_fw40Qf_ega2wozzsAfnxAplyqRrTyb9sUF6g/exec",
+    "Basic Three": "https://script.google.com/macros/s/AKfycbyIPRSUb-jPQwUSmO7Rq_rkQvDWT4vJVpYie8EuaGX7g4WKYcvY3_zxrC93B86-h60nKA/exec",
+    "Basic Four": "https://script.google.com/macros/s/AKfycbxPPHw2mIziO3FW-vlbnSxv0BLk2Fw8NB3YdN48F1raxU-J30b9MywVa0d7botWlOMv/exec",
+    "Basic Five": "https://script.google.com/macros/s/AKfycbxp-cKn-qNmaokBCsgh0RxhcCamxElIg1i6EmygOvfcLAR9mYyWbcxBNL8gWv41tS_V/exec",
+    "Basic Six": "https://script.google.com/macros/s/AKfycbwT79ZHMMWsUaDe2nh1iCaVP7V2KIrnuItLUJ_qJNHPdaAq0fk93zUZYZ8WOqsZq4uq4g/exec",
+    "Basic Seven": "https://script.google.com/macros/s/AKfycbzGGClIgq83z2G6r1zX2w44jnPf2P1xm0ueGbWucE9xs_yibYi5YLLRY_Mp-hvc08Kvjw/exec",
+    "Basic Eight": "https://script.google.com/macros/s/AKfycbwtImCgpAQ_aoiO2oeTis1RLXEfQirUsWJUajL9U6CbB8C6aTmhXSUVsZ7ZOq7sAucN/exec",
     "Basic Nine": "https://script.google.com/macros/s/AKfycbxkE3ob5U9aeFlhk1idAJ8Qe_bEMw09Koq0ywcun7j6WnePDi48QRY1iklinXzc_VwapA/exec",
-    "ABOUT": "https://aboutenpasoftdeveloper.blogspot.com/p/about-developer.html",
+    "ABOUT": "https://aboutenpasoftdeveloper.blogspot.com/",
     "HELP DESK": "https://helpdsekandtutorials.blogspot.com/",
     "ONLINE REPORT": "https://mampongorangestars.blogspot.com/"
-};
+  };
+
 
 // TAB FUNCTION
 function openTab(evt, tabId){
