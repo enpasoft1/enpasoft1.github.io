@@ -3,10 +3,25 @@
 <head>
   <meta charset="utf-8">
   <title>SMS · EpitechGh</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-  <!-- Favicon: red square with white A and blue border -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23C8102E'/%3E%3Crect x='2' y='2' width='28' height='28' rx='6' fill='none' stroke='%230033A0' stroke-width='2'/%3E%3Ctext x='16' y='23' font-family='system-ui,sans-serif' font-size='18' font-weight='800' fill='%23FFFFFF' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+  <!-- Standard Favicon (Browser Tab) -->
+  <link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1w856Xl3J9zquCi7x-j47iteOltgIKGJd">
+  
+  <!-- Apple Touch Icon (iOS Home Screen) -->
+  <link rel="apple-touch-icon" href="https://lh3.googleusercontent.com/d/1w856Xl3J9zquCi7x-j47iteOltgIKGJd">
+  
+  <!-- Android / Chrome Home Screen Capabilities -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="SMS EpitechGh">
+  
+  <!-- iOS Home Screen Capabilities -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SMS EpitechGh">
+  
+  <!-- Theme Color (Matches app background for browser UI) -->
+  <meta name="theme-color" content="#0a1628">
 
   <style>
     /* ----- reset & base ----- */
@@ -59,23 +74,16 @@
     .brand-icon {
       width: 60px;
       height: 60px;
-      background: #C8102E;
       border-radius: 16px;
       border: 2px solid #0033A0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: system-ui, -apple-system, sans-serif;
-      font-weight: 800;
-      font-size: 30px;
-      color: #FFFFFF;
-      letter-spacing: -1px;
+      object-fit: cover; /* Ensures the image scales nicely */
       flex-shrink: 0;
       box-shadow: 
         0 0 0 1px rgba(0,51,160,0.5),
         0 14px 34px rgba(200,16,46,0.45),
         inset 0 -2px 0 rgba(0,0,0,0.2);
       transition: transform 0.2s ease;
+      background: #C8102E; /* Fallback background while image loads */
     }
 
     .brand-text {
@@ -210,8 +218,6 @@
       opacity: 1;
     }
 
-    /* small extra: iframe inner shadow via pseudo? not needed */
-
     /* ----- responsive adjustments ----- */
     @media screen and (max-width: 768px) {
       #frame {
@@ -220,7 +226,6 @@
       .brand-icon {
         width: 50px;
         height: 50px;
-        font-size: 24px;
         border-radius: 14px;
       }
       .brand-name {
@@ -264,7 +269,7 @@
     <div class="corner br"></div>
 
     <div class="brand">
-      <div class="brand-icon" aria-hidden="true">A</div>
+      <img src="https://lh3.googleusercontent.com/d/1w856Xl3J9zquCi7x-j47iteOltgIKGJd" alt="EpitechGh Icon" class="brand-icon">
       <div class="brand-text">
         <span class="brand-name">EpitechGh</span>
         <span class="brand-sub">School Management System</span>
@@ -289,10 +294,12 @@
   <!-- Main iframe -->
   <iframe
     id="frame"
-    src="https://script.google.com/macros/s/AKfycbyWIZtCGn4QM1bHIa8BGhfwuNa09jp8OYwvUzZbLkz73iUtiI2M2gkp454sTC-f3E8e/exec"
+    src="https://script.google.com/macros/s/AKfycbxsRtgQhiUBMWmET_PEBlOgSbx2tZWW_TXsOvOBJ6UDda7hj5F5l7OYSXSliDwjw3a_/exec"
     title="EpitechGh – School Management"
     loading="eager"
     allowfullscreen
+    allow="geolocation; camera; microphone" 
+    style="border: none;"
   ></iframe>
 
   <script>
@@ -325,5 +332,6 @@
       });
     })();
   </script>
+ 
 </body>
 </html>
